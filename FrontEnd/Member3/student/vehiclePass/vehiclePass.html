@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniGuard - Vehicle Pass</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../../shared/notif-widget.css">
+</head>
+<body>
+  <div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div>
+        <div class="brand-header">
+          <div class="brand-logo">
+            <img src="../../images/logo.png" alt="" class="logopng">
+          </div>
+          <div class="brand-text">
+            <h2>UniGuard Security</h2>
+            <p>Student Portal</p>
+          </div>
+        </div>
+
+        <nav class="nav-menu">
+          <span class="menu-label">STUDENT SERVICES</span>
+          <a href="../dashboard/index.html" class="nav-item"><i class="fa-solid fa-house"></i> Dashboard</a>
+          <a href="../lostFound/lostFound.html" class="nav-item"><i class="fa-solid fa-box-archive"></i> Lost &amp; Found</a>
+          <a href="vehiclePass.html" class="nav-item active"><i class="fa-solid fa-car"></i> Vehicle Pass</a>
+          <a href="../reportIncident/reportIncident.html" class="nav-item"><i class="fa-solid fa-phone-volume"></i> Emergency Contact</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="window.location.href='../loginPage.html'"><i class="fa-solid fa-power-off"></i> LOGOUT</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-wrapper">
+
+      <header class="topbar">
+        <div class="welcome-greet">
+          <div class="welcome-icon"><i class="fa-solid fa-sun"></i></div>
+          <div class="welcome-text">
+            <span class="welcome-hi">Good morning,</span>
+            <span class="welcome-name">T.W</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="time-display">
+            <span id="current-time" class="time-text">--:--:-- PM</span>
+            <span id="current-date" class="date-text">-- ---- ----</span>
+          </div>
+
+          <div class="notification-icon">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge">2</span>
+          </div>
+
+          <a href="../myprofile.html" class="user-profile-link">
+          <div class="user-profile">
+            <img src="https://i.pravatar.cc/100?img=32" alt="Profile Avatar" class="avatar">
+            <div class="user-info">
+              <span class="user-name">T.W Abeysekera</span>
+              <span class="user-role">STUDENT</span>
+            </div>
+          </div>
+          </a>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Vehicle Pass Management</h1>
+          </div>
+          <div style="display:flex; gap:0.75rem;">
+            <button class="btn-secondary" onclick="openRequestModal('night')">
+              <i class="fa-solid fa-moon"></i> Request Night Pass
+            </button>
+            <button class="btn-primary" onclick="openRequestModal('standard')">
+              <i class="fa-solid fa-car-side"></i> Request Vehicle Pass
+            </button>
+          </div>
+        </div>
+
+        <!-- CURRENT PASS DISPLAY -->
+        <div class="pass-card-wrap" id="current-pass-wrap">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- PASS HISTORY -->
+        <div class="table-card">
+          <div class="table-header">
+            <h3>MY VEHICLE PASS HISTORY</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="custom-table" id="pass-table">
+              <thead>
+                <tr>
+                  <th>Vehicle No.</th>
+                  <th>Type</th>
+                  <th>Issued Date</th>
+                  <th>Expire Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="pass-table-body">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <footer class="footer">
+        <div><i class="fa-solid fa-shield"></i> UNIGUARD SECURITY MANAGEMENT SYSTEM</div>
+        <div>UNIVERSITY OF COLOMBO, SRI LANKA</div>
+        <div>&copy; All rights reserved</div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <!-- REQUEST VEHICLE PASS MODAL -->
+  <div class="modal-overlay" id="requestModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="requestModalTitle"><i class="fa-solid fa-car-side"></i> Request Vehicle Pass</h3>
+        <button class="close-btn" onclick="closeModal('requestModal')">&times;</button>
+      </div>
+      <form id="requestForm" onsubmit="handleRequestSubmit(event)">
+        <input type="hidden" id="pass-type" value="standard">
+
+        <div class="form-group">
+          <label>Vehicle Number</label>
+          <input type="text" id="vehicle-number" placeholder="e.g., WP CAB-2451" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Vehicle Type</label>
+            <select id="vehicle-type" required>
+              <option value="">-- Select Type --</option>
+              <option value="Car">Car</option>
+              <option value="Motorcycle">Motorcycle</option>
+              <option value="Van">Van</option>
+              <option value="Bicycle">Bicycle</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Purpose / Reason</label>
+            <input type="text" id="pass-reason" placeholder="e.g., Daily commute" required>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('requestModal')">Cancel</button>
+          <button type="submit" class="btn-primary">Submit Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="vehiclePass.js"></script>
+  <script src="../../shared/notif-widget.js"></script>
+<script>
+
+function updateGreeting() {
+  const elements = document.querySelectorAll(".welcome-hi");
+  if (!elements.length) return;
+  const hour = new Date().getHours();
+  let greetingText = "Good morning";
+  if (hour >= 12 && hour < 17) {
+    greetingText = "Good afternoon";
+  } else if (hour >= 17) {
+    greetingText = "Good evening";
+  }
+  elements.forEach((el) => {
+    const text = el.textContent || "";
+    const hasComma = text.trim().endsWith(",");
+    el.textContent = greetingText + (hasComma ? "," : "");
+  });
+}
+
+(function() { if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", updateGreeting); } else { updateGreeting(); } })();
+</script>
+</body>
+</html>
