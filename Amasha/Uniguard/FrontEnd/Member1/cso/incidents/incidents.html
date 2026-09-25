@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniGuard - Critical Incidents</title>
+
+  <!-- Google Fonts & FontAwesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Chart.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ================= NOTIFICATION DROPDOWN STYLES ================= */
+    .notification-wrapper {
+      position: relative;
+    }
+
+    .notification-icon {
+      position: relative;
+      background: #e2e8f0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .notification-icon:hover {
+      background: #cbd5e1;
+    }
+
+    .notification-icon .badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: #ef4444;
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 800;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #ffffff;
+    }
+
+    /* DROPDOWN MENU */
+    .notification-dropdown {
+      position: absolute;
+      top: calc(100% + 12px);
+      right: 0;
+      width: 360px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+      border: 1px solid #e2e8f0;
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      animation: fadeInDown 0.2s ease-out forwards;
+    }
+
+    .notification-dropdown.active {
+      display: flex;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .notif-header {
+      padding: 1rem 1.25rem;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .notif-header h4 {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+    }
+
+    .notif-header .btn-mark-read {
+      font-size: 0.725rem;
+      color: #0088ff;
+      background: none;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .notif-header .btn-mark-read:hover {
+      text-decoration: underline;
+    }
+
+    .notif-body {
+      max-height: 320px;
+      overflow-y: auto;
+    }
+
+    .notif-item {
+      display: flex;
+      gap: 0.85rem;
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid #f1f5f9;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s;
+      position: relative;
+    }
+
+    .notif-item:hover {
+      background: #f8fafc;
+    }
+
+    .notif-item.unread {
+      background: #f0f7ff;
+    }
+
+    .notif-item.unread::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #0088ff;
+    }
+
+    .notif-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .notif-icon.red { background: #fef2f2; color: #ef4444; }
+    .notif-icon.blue { background: #eaf4ff; color: #0088ff; }
+    .notif-icon.orange { background: #fff7ed; color: #f97316; }
+
+    .notif-content {
+      flex: 1;
+    }
+
+    .notif-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 0.15rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .notif-desc {
+      font-size: 0.75rem;
+      color: #64748b;
+      line-height: 1.35;
+      margin-bottom: 0.3rem;
+    }
+
+    .notif-time {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+
+    .notif-footer {
+      padding: 0.75rem;
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      text-align: center;
+    }
+
+    .notif-footer a {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0088ff;
+      text-decoration: none;
+    }
+
+    .notif-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .no-notif-msg {
+      padding: 2rem 1rem;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.8rem;
+      display: none;
+    }
+  </style>
+  <link rel="stylesheet" href="../../assets/css/common.css">
+</head>
+
+<body>
+  <div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand-header">
+        <div class="brand-logo">
+          <img src="../../images/logo.png" alt="" class="logopng">
+        </div>
+        <div class="brand-text">
+          <h2>UniGuard Security</h2>
+          <p>Chief Security Officer</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <span class="menu-label">CSO OPERATIONS</span>
+        <a href="../dashboard/index.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> CSO Dashboard</a>
+        <a href="../manageOic/manageOic.html" class="nav-item"><i class="fa-solid fa-users"></i> Manage OIC Accounts</a>
+        <a href="../manageJSO/manageJso.html" class="nav-item"><i class="fa-solid fa-building-user"></i> Manage JSO Accounts</a>
+        <a href="incidents.html" class="nav-item active"><i class="fa-solid fa-triangle-exclamation"></i> Critical Incidents</a>
+        <a href="../visitorPass/visitorPass.html" class="nav-item"><i class="fa-solid fa-id-card"></i> Visitor Requests</a>
+        <a href="../events/events.html" class="nav-item"><i class="fa-solid fa-calendar-check"></i> Manage Events</a>
+        <a href="../reports/reports.html" class="nav-item"><i class="fa-solid fa-file-invoice"></i> Reports</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="window.location.href='../loginPage.html'"><i class="fa-solid fa-power-off"></i> LOGOUT</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-wrapper">
+
+      <!-- TOPBAR HEADER -->
+      <header class="topbar">
+        <div class="welcome-greet">
+          <div class="welcome-icon"><i class="fa-solid fa-sun"></i></div>
+          <div class="welcome-text">
+            <span class="welcome-hi">Good morning,</span>
+            <span class="welcome-name">Officer</span>
+          </div>
+          <div class="officer-status-picker" data-status-picker>
+            <span class="status-indicator-dot active" data-status-dot></span>
+            <select class="status-select" data-status-select title="Change your active status">
+              <option value="On Active">On Active</option>
+              <option value="On Leave">On Leave</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="time-display">
+            <span id="current-time" class="time-text">--:--:-- PM</span>
+            <span id="current-date" class="date-text">-- ---- ----</span>
+            <script>
+              (function tickClock() {
+                function update() {
+                  var t = document.getElementById('current-time');
+                  var d = document.getElementById('current-date');
+                  if (t) t.textContent = new Date().toLocaleTimeString('en-US', { hour12: true });
+                  if (d) d.textContent = new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' }).toUpperCase();
+                }
+                update();
+                setInterval(update, 1000);
+              })();
+            </script>
+          </div>
+
+          <!-- NOTIFICATION CONTAINER WITH DROPDOWN -->
+          <div class="notification-wrapper">
+            <div class="notification-icon" id="notificationBtn" onclick="toggleNotifications(event)">
+              <i class="fa-regular fa-bell"></i>
+              <span class="badge" id="notifBadge">2</span>
+            </div>
+
+            <!-- DROPDOWN PANEL -->
+            <div class="notification-dropdown" id="notificationDropdown">
+              <div class="notif-header">
+                <h4><i class="fa-solid fa-bell"></i> Notifications</h4>
+                <button class="btn-mark-read" onclick="markAllAsRead()">Mark all as read</button>
+              </div>
+
+              <div class="notif-body" id="notifList">
+                <a href="incidents.html" class="notif-item unread">
+                  <div class="notif-icon red">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                  </div>
+                  <div class="notif-content">
+                    <div class="notif-title">Critical Incident Alert</div>
+                    <div class="notif-desc">Unauthorized breach reported at Gate 02. OIC assigned.</div>
+                    <span class="notif-time">10 mins ago</span>
+                  </div>
+                </a>
+
+                <a href="../visitorPass/visitorPass.html" class="notif-item unread">
+                  <div class="notif-icon orange">
+                    <i class="fa-solid fa-id-card"></i>
+                  </div>
+                  <div class="notif-content">
+                    <div class="notif-title">VIP Visitor Request</div>
+                    <div class="notif-desc">Pending clearance approval for Ministry Delegation.</div>
+                    <span class="notif-time">45 mins ago</span>
+                  </div>
+                </a>
+
+                <a href="../reports/reports.html" class="notif-item">
+                  <div class="notif-icon blue">
+                    <i class="fa-solid fa-file-invoice"></i>
+                  </div>
+                  <div class="notif-content">
+                    <div class="notif-title">Daily Operations Report</div>
+                    <div class="notif-desc">Jayasinghe submitted shift summary report.</div>
+                    <span class="notif-time">2 hours ago</span>
+                  </div>
+                </a>
+              </div>
+
+              <div class="no-notif-msg" id="noNotifMsg">No new notifications</div>
+
+              <div class="notif-footer">
+                <a href="../reports/reports.html">View All Activity Logs</a>
+              </div>
+            </div>
+          </div>
+
+          <a href="../myprofile.html" class="user-profile-link">
+            <div class="user-profile">
+              <div class="avatar-initial" style="width:34px; height:34px; border-radius:50%; background:linear-gradient(135deg, #0088ff, #0f172a); color:#ffffff; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0;"><i class="fa-solid fa-user"></i></div>
+              <div class="user-info">
+                <span class="user-name">CSO Officer</span>
+                <span class="user-role">CHIEF SECURITY OFFICER</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </header>
+
+      <!-- DASHBOARD BODY CONTENT -->
+      <div class="dashboard-content">
+
+        <!-- PAGE HEADER & ACTION BUTTON -->
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Critical Security Incidents</h1>
+          </div>
+        </div>
+
+        <!-- SUMMARY METRICS -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">TOTAL INCIDENTS (MONTH)</span>
+            <div class="stat-value"><span class="stat-num blue" id="total-incidents-count">0</span> <span class="stat-text">Logged</span></div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">ACTIVE / UNDER INVESTIGATION</span>
+            <div class="stat-value"><span class="stat-num orange" id="active-incidents-count">0</span> <span class="stat-text">Open Cases</span></div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">HIGH / URGENT SEVERITY</span>
+            <div class="stat-value"><span class="stat-num red" id="urgent-incidents-count">0</span> <span class="stat-text">Critical</span></div>
+          </div>
+        </div>
+
+        <!-- INCIDENTS TABLE CARD -->
+        <div class="table-card">
+          <div class="table-header">
+            <h3>CRITICAL INCIDENTS LOG</h3>
+            <div class="table-search">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="incident-search-input" onkeyup="filterIncidentTable()" placeholder="Filter by ID, incident type, sector, or OIC...">
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="custom-table" id="incident-table">
+              <thead>
+                <tr>
+                  <th>Incident Code &amp; Type</th>
+                  <th>Sector &amp; Location</th>
+                  <th>Assigned OIC</th>
+                  <th class="text-right">CSO Operations &amp; Briefing</th>
+                </tr>
+              </thead>
+              <tbody id="incident-table-body">
+                <!-- Dynamically populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div><i class="fa-solid fa-shield"></i> UNIGUARD SECURITY MANAGEMENT SYSTEM</div>
+        <div>UNIVERSITY OF COLOMBO, SRI LANKA</div>
+        <div>&copy; All rights reserved</div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <!-- ==========================================
+        MODALS FOR LOGGING, ACTIONS & EVIDENCE
+       ========================================== -->
+
+  <!-- 1. LOG CRITICAL INCIDENT MODAL -->
+  <div class="modal-overlay" id="incidentModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="modalTitle">Log New Critical Incident</h3>
+        <button class="close-btn" onclick="closeModal('incidentModal')">&times;</button>
+      </div>
+      <form id="incidentForm" onsubmit="handleFormSubmit(event)">
+        <input type="hidden" id="incident-id">
+
+        <div class="form-group">
+          <label>Incident Type / Brief Title</label>
+          <input type="text" id="incident-title" placeholder="e.g., Perimeter Breach, Equipment Theft, Unlawful Assembly" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Target Sector / Department</label>
+            <select id="incident-sector" required>
+              <option value="">-- Select Sector --</option>
+              <option value="Main Gate Complex">Main Gate Complex</option>
+              <option value="UCSC Sector & Computer Labs">UCSC Sector & Computer Labs</option>
+              <option value="Science Block & Laboratories">Science Block & Laboratories</option>
+              <option value="Arts Faculty Complex">Arts Faculty Complex</option>
+              <option value="Administration Building">Administration Building</option>
+              <option value="Hostel Area & Perimeter">Hostel Area & Perimeter</option>
+              <option value="Main Library Complex">Main Library Complex</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Specific Location Details</label>
+            <input type="text" id="incident-location" placeholder="e.g., Lab 02 Ground Floor, East Wing" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Severity Level</label>
+            <select id="incident-severity" required>
+              <option value="Low">Low - Minor Infraction</option>
+              <option value="Medium">Medium - Security Breach</option>
+              <option value="High">High - Severe Threat / Property Damage</option>
+              <option value="Critical">Critical - Immediate Emergency Alert</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Assign Officer in Charge (OIC)</label>
+            <select id="incident-assigned-oic" required>
+              <option value="">-- Assign OIC --</option>
+              <option value="A.B. Perera">A.B. Perera (UCSC Sector)</option>
+              <option value="K.L. Ratnayake">K.L. Ratnayake (Science Block)</option>
+              <option value="M.S. Jayasinghe">M.S. Jayasinghe (Main Library)</option>
+              <option value="Unassigned">Unassigned</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Incident Description &amp; Initial Observations</label>
+          <textarea id="incident-description" rows="3" placeholder="Provide full details of the event, witness statements, or initial findings..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Evidence Photos (Optional URLs / File Attachments)</label>
+          <input type="text" id="incident-evidence-url" placeholder="Paste image URL (e.g., https://images.unsplash.com/... or separate with commas)">
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('incidentModal')">Cancel</button>
+          <button type="submit" class="btn-primary" id="saveBtn">Log Incident</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. CSO TAKE ACTION & UPDATE INCIDENT MODAL -->
+  <div class="modal-overlay" id="actionModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-user-shield"></i> Take CSO Action on Incident</h3>
+        <button class="close-btn" onclick="closeModal('actionModal')">&times;</button>
+      </div>
+      <form id="actionForm" onsubmit="handleActionSubmit(event)">
+        <input type="hidden" id="action-incident-id">
+
+        <div class="form-group">
+          <label>Target Incident Reference</label>
+          <input type="text" id="action-incident-code" readonly style="background: #f1f5f9; font-weight: 700;">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Update Severity Level</label>
+            <select id="action-severity" required>
+              <option value="Low">Low - Minor Infraction</option>
+              <option value="Medium">Medium - Security Breach</option>
+              <option value="High">High - Severe Threat / Property Damage</option>
+              <option value="Critical">Critical - Immediate Emergency Alert</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Reassign Officer in Charge (OIC)</label>
+            <select id="action-assigned-oic" required>
+              <option value="A.B. Perera">A.B. Perera (UCSC Sector)</option>
+              <option value="K.L. Ratnayake">K.L. Ratnayake (Science Block)</option>
+              <option value="M.S. Jayasinghe">M.S. Jayasinghe (Main Library)</option>
+              <option value="Unassigned">Unassigned</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>CSO Directive &amp; Directives / Action Directives</label>
+          <textarea id="action-directive" rows="4" placeholder="Enter tactical directives, emergency dispatches, backup requests, or investigation directives for the field team..." required></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('actionModal')">Cancel</button>
+          <button type="submit" class="btn-primary" style="background: #0284c7;"><i class="fa-solid fa-paper-plane"></i> Dispatch Action Directive</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. INCIDENT BRIEFING & EVIDENCE MEDIA GALLERY MODAL -->
+  <div class="modal-overlay" id="briefingModal">
+    <div class="modal-container" style="max-width: 650px;">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-file-shield"></i> Incident Briefing &amp; Evidence Gallery</h3>
+        <button class="close-btn" onclick="closeModal('briefingModal')">&times;</button>
+      </div>
+      <div class="briefing-body" style="padding: 1rem 0;">
+        <div class="form-group">
+          <label style="font-weight: 700; color: #1e293b;">Incident Reference Code</label>
+          <div id="briefing-code" style="font-size: 1.1rem; font-weight: 700; color: #2563eb;">INC-0000</div>
+        </div>
+        <div class="form-group">
+          <label style="font-weight: 700; color: #1e293b;">Summary &amp; Location</label>
+          <div id="briefing-title" style="font-weight: 600; color: #334155;">-</div>
+        </div>
+        <div class="form-group">
+          <label style="font-weight: 700; color: #1e293b;">Full Incident Report</label>
+          <p id="briefing-details" style="background: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 0.9rem; color: #475569;">-</p>
+        </div>
+
+        <!-- EVIDENCE PICTURES GALLERY -->
+        <div class="form-group">
+          <label style="font-weight: 700; color: #1e293b;"><i class="fa-solid fa-camera"></i> Evidence Pictures &amp; Visual Log</label>
+          <div id="briefing-evidence-gallery" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-top: 8px;">
+            <!-- Rendered dynamically by JavaScript -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeModal('briefingModal')">Close</button>
+        <button type="button" class="btn-primary" onclick="alert('Report PDF export initiated.')"><i class="fa-solid fa-file-pdf"></i> Export PDF Report</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="incidents.js"></script>
+
+  <!-- NOTIFICATION INTERACTION SCRIPT -->
+  <script>
+    function toggleNotifications(event) {
+      event.stopPropagation();
+      const dropdown = document.getElementById('notificationDropdown');
+      dropdown.classList.toggle('active');
+    }
+
+    function markAllAsRead() {
+      const unreadItems = document.querySelectorAll('.notif-item.unread');
+      unreadItems.forEach(item => item.classList.remove('unread'));
+      
+      const badge = document.getElementById('notifBadge');
+      if (badge) {
+        badge.style.display = 'none';
+      }
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (e) {
+      const dropdown = document.getElementById('notificationDropdown');
+      const btn = document.getElementById('notificationBtn');
+      if (dropdown && !dropdown.contains(e.target) && !btn.contains(e.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+  </script>
+  <script src="../csoHeader.js?v=1.0.6"></script>
+</body>
+</html>

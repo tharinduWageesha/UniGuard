@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniGuard - OIC Visitor Pass Requests</title>
+  
+  <!-- Google Fonts & FontAwesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../../assets/css/common.css">
+</head>
+<body>
+  <div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand-header">
+        <div class="brand-logo">
+          <img src="../../images/logo.png" alt="UniGuard Logo" class="logopng">
+        </div>
+        <div class="brand-text">
+          <h2>UniGuard Security</h2>
+          <p>Officer in Charge</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <span class="menu-label">OIC OPERATIONS</span>
+        <a href="../dashboard/dashboard.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> OIC Dashboard</a>
+        <a href="../assignTasks/assignTask.html" class="nav-item"><i class="fa-solid fa-list-check"></i> Assign Tasks</a>
+        <a href="../csoDirectives/csoDirectives.html" class="nav-item"><i class="fa-solid fa-user-shield"></i> CSO Management</a>
+        <a href="../incidents/incidents.html" class="nav-item"><i class="fa-solid fa-triangle-exclamation"></i> Incident Reports</a>
+        <a href="visitorPass.html" class="nav-item active"><i class="fa-solid fa-id-card"></i> Visitor Requests</a>
+        <a href="../events/events.html" class="nav-item"><i class="fa-solid fa-car-side"></i> Manage Events</a>
+        <a href="../nightVehicle/nightVehicle.html" class="nav-item"><i class="fa-solid fa-car-side"></i> Night Vehicle Entry</a>
+        <a href="../reports/reports.html" class="nav-item"><i class="fa-solid fa-file-invoice"></i> Department Reports</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="window.location.href='../loginPage.html'"><i class="fa-solid fa-power-off"></i> LOGOUT</button>
+      </div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <main class="main-wrapper">
+      
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <div class="welcome-greet">
+          <div class="welcome-icon"><i class="fa-solid fa-sun"></i></div>
+          <div class="welcome-text">
+            <span class="welcome-hi">Good morning,</span>
+            <span class="welcome-name">Saman</span>
+          </div>
+          <div class="officer-status-picker" data-status-picker>
+            <span class="status-indicator-dot active" data-status-dot></span>
+            <select class="status-select" data-status-select title="Change your active status">
+              <option value="On Active">On Active</option>
+              <option value="On Leave">On Leave</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="time-display">
+            <span id="current-time" class="time-text">--:--:-- PM</span>
+            <span id="current-date" class="date-text">-- ---- ----</span>
+          </div>
+
+          <div class="notification-wrapper">
+            <div class="notification-icon" id="notifBell">
+              <i class="fa-regular fa-bell"></i>
+              <span class="badge" id="notifBadge">3</span>
+            </div>
+            <div class="notification-dropdown" id="notifDropdown">
+              <div class="notif-header">
+                <h4>Notifications</h4>
+                <a href="#" id="notifMarkRead">Mark all as read</a>
+              </div>
+              <div class="notif-list">
+                <div class="notif-item unread">
+                  <div class="notif-icon danger"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                  <div class="notif-body">
+                    <p class="notif-title">Critical Incident Alert</p>
+                    <p class="notif-desc">Unauthorized breach reported at Gate 02. OIC assigned.</p>
+                    <span class="notif-time">10 mins ago</span>
+                  </div>
+                </div>
+                <div class="notif-item unread">
+                  <div class="notif-icon warning"><i class="fa-solid fa-id-card"></i></div>
+                  <div class="notif-body">
+                    <p class="notif-title">VIP Visitor Request</p>
+                    <p class="notif-desc">Pending clearance approval for Ministry Delegation.</p>
+                    <span class="notif-time">45 mins ago</span>
+                  </div>
+                </div>
+                <div class="notif-item">
+                  <div class="notif-icon info"><i class="fa-solid fa-file-lines"></i></div>
+                  <div class="notif-body">
+                    <p class="notif-title">Daily Operations Report</p>
+                    <p class="notif-desc">Jayasinghe submitted shift summary report.</p>
+                    <span class="notif-time">2 hours ago</span>
+                  </div>
+                </div>
+              </div>
+              <a href="#" class="notif-footer">View All Activity Logs</a>
+            </div>
+          </div>
+
+          <a href="../myprofile.html" class="user-profile-link">
+          <div class="user-profile">
+            <img src="https://i.pravatar.cc/100?img=68" alt="Profile Avatar" class="avatar">
+            <div class="user-info">
+              <span class="user-name">Saman Perera</span>
+              <span class="user-role">OIC - SCIENCE BLOCK & LABORATORIES</span>
+            </div>
+          </div>
+          </a>
+        </div>
+      </header>
+
+      <!-- PAGE CONTENT -->
+      <div class="dashboard-content">
+        
+        <!-- BANNER -->
+        <section class="banner-card">
+          <div class="blue-accent"></div>
+          <div class="banner-body">
+            <h1>Visitor Pass Verification & Approval Portal</h1>
+            <p>Review entry requests forwarded by CSO, verify credentials, and issue digital security gate passes.</p>
+          </div>
+        </section>
+
+        <!-- STAT CARDS -->
+        <section class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">PENDING REQUESTS</span>
+            <div class="stat-value">
+              <span class="stat-num blue" id="countPending">2</span>
+            </div>
+            <span class="stat-text">Awaiting Approval</span>
+          </div>
+
+          <div class="stat-card">
+            <span class="stat-label">APPROVED TODAY</span>
+            <div class="stat-value">
+              <span class="stat-num green" style="color: var(--accent-green);" id="countApproved">12</span>
+            </div>
+            <span class="stat-text">Passes Issued</span>
+          </div>
+        </section>
+
+        <!-- VISITOR PASS REQUESTS TABLE -->
+        <section class="table-card">
+          <div class="table-header">
+            <h3>VISITOR PASS REQUEST LOGS</h3>
+            <div class="table-filters" style="position: relative; width: 320px;">
+              <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8;"></i>
+              <input type="text" id="tableFilterInput" placeholder="Filter by Pass ID, Visitor Name, NIC..." onkeyup="filterVisitors()" style="width: 100%; padding: 6px 12px 6px 36px; border: 1px solid #cbd5e1; border-radius: 20px; font-size: 0.85rem;">
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table" id="visitorTable">
+              <thead>
+                <tr>
+                  <th>REF CODE & VISITOR DETAILS</th>
+                  <th>TARGET DEPARTMENT</th>
+                  <th>SCHEDULED VISIT</th>
+                  <th>STATUS</th>
+                  <th style="text-align: right;">ACTION & DETAILS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- ROW 1 (Matches CSO VP-2026-401) -->
+                <tr data-id="VP-2026-401">
+                  <td>
+                    <strong>VP-2026-401</strong><br>
+                    <span style="color: #334155; font-weight: 600;">Dr. N.S. Samarasinghe</span><br>
+                    <small style="color: #64748b;"><i class="fa-regular fa-id-card"></i> NIC: 198234100982</small>
+                  </td>
+                  <td>
+                    <strong>Computer Science Dept</strong><br>
+                    <span class="badge-tag">UCSC Sector</span>
+                  </td>
+                  <td>
+                    <span>Aug 10, 2026</span><br>
+                    <small style="color: #64748b;">09:00 AM - 03:00 PM</small>
+                  </td>
+                  <td><span class="status-pill pending"><i class="fa-solid fa-clock"></i> Pending Review</span></td>
+                  <td style="text-align: right;">
+                    <div class="action-btn-group">
+                      <button class="icon-btn" title="View Visitor Details" onclick="openVisitorModal('VP-2026-401', 'Dr. N.S. Samarasinghe', '198234100982', 'Computer Science Dept (UCSC Sector)', 'Academic Consultation & Inspection', 'Aug 10, 2026 (09:00 AM - 03:00 PM)', 'Pending Review')"><i class="fa-regular fa-eye"></i></button>
+                      <button class="icon-btn" title="Approve Pass" onclick="openPassActionModal('VP-2026-401', 'Dr. N.S. Samarasinghe')"><i class="fa-solid fa-user-check"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- ROW 2 (Matches CSO VP-2026-405) -->
+                <tr data-id="VP-2026-405">
+                  <td>
+                    <strong>VP-2026-405</strong><br>
+                    <span style="color: #334155; font-weight: 600;">Apex Fiber Technical Team</span><br>
+                    <small style="color: #64748b;"><i class="fa-solid fa-building"></i> Vendor ID: V-99120</small>
+                  </td>
+                  <td>
+                    <strong>Physics Lab</strong><br>
+                    <span class="badge-tag">Science Block</span>
+                  </td>
+                  <td>
+                    <span>Aug 11, 2026</span><br>
+                    <small style="color: #64748b;">08:30 AM - 05:00 PM</small>
+                  </td>
+                  <td><span class="status-pill pending"><i class="fa-solid fa-clock"></i> Pending Review</span></td>
+                  <td style="text-align: right;">
+                    <div class="action-btn-group">
+                      <button class="icon-btn" title="View Visitor Details" onclick="openVisitorModal('VP-2026-405', 'Apex Fiber Technical Team', 'Vendor ID: V-99120', 'Physics Lab (Science Block)', 'Network Fiber Infrastructure Maintenance', 'Aug 11, 2026 (08:30 AM - 05:00 PM)', 'Pending Review')"><i class="fa-regular fa-eye"></i></button>
+                      <button class="icon-btn" title="Approve Pass" onclick="openPassActionModal('VP-2026-405', 'Apex Fiber Technical Team')"><i class="fa-solid fa-user-check"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- ROW 3 (Matches CSO VP-2026-409) -->
+                <tr data-id="VP-2026-409">
+                  <td>
+                    <strong>VP-2026-409</strong><br>
+                    <span style="color: #334155; font-weight: 600;">Prof. H.K. Alwis</span><br>
+                    <small style="color: #64748b;"><i class="fa-regular fa-id-card"></i> NIC: 196811200114</small>
+                  </td>
+                  <td>
+                    <strong>Auditorium Hall</strong><br>
+                    <span class="badge-tag">Main Library</span>
+                  </td>
+                  <td>
+                    <span>Aug 12, 2026</span><br>
+                    <small style="color: #64748b;">01:00 PM - 06:00 PM</small>
+                  </td>
+                  <td><span class="status-pill completed"><i class="fa-solid fa-check"></i> Approved</span></td>
+                  <td style="text-align: right;">
+                    <div class="action-btn-group">
+                      <button class="icon-btn" title="View Visitor Details" onclick="openVisitorModal('VP-2026-409', 'Prof. H.K. Alwis', '196811200114', 'Auditorium Hall (Main Library)', 'Guest Lecture & Event Keynote', 'Aug 12, 2026 (01:00 PM - 06:00 PM)', 'Approved')"><i class="fa-regular fa-eye"></i></button>
+                      <button class="icon-btn" title="Approve Pass" onclick="openPassActionModal('VP-2026-409', 'Prof. H.K. Alwis')"><i class="fa-solid fa-user-check"></i></button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div><i class="fa-solid fa-shield"></i> UNIGUARD SECURITY MANAGEMENT SYSTEM</div>
+        <div>UNIVERSITY OF COLOMBO, SRI LANKA</div>
+        <div>&copy; All rights reserved</div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <!-- MODAL 1: VISITOR PASS DETAILS -->
+  <div class="modal-overlay" id="visitorModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-id-card" style="color: var(--primary-blue);"></i> Visitor Pass Verification Details</h3>
+        <button class="modal-close" onclick="closeVisitorModal()">&times;</button>
+      </div>
+
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 16px;">
+        <div>
+          <span class="section-desc" style="font-weight: 800; text-transform: uppercase;">PASS REFERENCE ID</span>
+          <h2 id="modalPassCode" style="color: var(--primary-blue); font-size: 1.3rem; font-weight: 800; margin-top: 2px;">VP-2026-401</h2>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 16px;">
+          <div style="margin-bottom: 10px;">
+            <strong>Visitor Name:</strong> <span id="modalVisitorName">Dr. N.S. Samarasinghe</span><br>
+            <strong>NIC / ID:</strong> <span id="modalNicNumber">198234100982</span>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <strong>Target Department:</strong> <span id="modalHostDept">Computer Science Dept (UCSC Sector)</span>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <strong>Purpose of Visit:</strong> <span id="modalPurpose">Academic Consultation & Inspection</span>
+          </div>
+          <div>
+            <strong>Scheduled Visit:</strong> <span id="modalSchedule">Aug 10, 2026 (09:00 AM - 03:00 PM)</span><br>
+            <strong>Current Pass Status:</strong> <span id="modalPassStatus">Pending Review</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeVisitorModal()">Close</button>
+        <button class="btn-primary" onclick="closeVisitorModal()">
+          <i class="fa-solid fa-print"></i> Print Digital Gate Pass
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: OIC PASS APPROVAL CONFIRMATION -->
+  <div class="modal-overlay" id="passActionModal">
+    <div class="modal-box" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-user-check" style="color: var(--primary-blue);"></i> Approve Visitor Gate Pass</h3>
+        <button class="modal-close" onclick="closePassActionModal()">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <input type="hidden" id="modalTargetPassId">
+
+        <p style="color: #334155; font-size: 0.95rem; margin-bottom: 1rem;">
+          Are you sure you want to approve and issue the security gate pass for this visitor?
+        </p>
+
+        <div class="form-group mb-3">
+          <label class="section-desc" style="font-weight: 800; text-transform: uppercase; margin-bottom: 0.3rem;">Target Pass Request</label>
+          <input type="text" id="modalPassTitle" class="form-control" readonly style="font-weight: 700;">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closePassActionModal()">Cancel</button>
+        <button class="btn-primary" id="btnSubmitPassAction" onclick="submitPassAction()" style="background-color: #10b981;">
+          <i class="fa-solid fa-check-circle"></i> Confirm & Issue Pass
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../assets/js/common.js"></script>
+  <script src="visitorPass.js"></script>
+
+<script>
+(function() {
+  document.addEventListener('DOMContentLoaded', function () {
+    var notifBell = document.getElementById('notifBell');
+    var notifDropdown = document.getElementById('notifDropdown');
+    var notifMarkRead = document.getElementById('notifMarkRead');
+    var notifBadge = document.getElementById('notifBadge');
+
+    if (notifBell && notifDropdown) {
+      notifBell.addEventListener('click', function (e) {
+        e.stopPropagation();
+        notifDropdown.classList.toggle('open');
+      });
+      document.addEventListener('click', function (e) {
+        if (!notifDropdown.contains(e.target) && !notifBell.contains(e.target)) {
+          notifDropdown.classList.remove('open');
+        }
+      });
+    }
+
+    if (notifMarkRead) {
+      notifMarkRead.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelectorAll('#notifDropdown .notif-item.unread').forEach(function (item) {
+          item.classList.remove('unread');
+        });
+        if (notifBadge) notifBadge.style.display = 'none';
+      });
+    }
+  });
+})();
+</script>
+<script>
+
+function updateGreeting() {
+  const elements = document.querySelectorAll(".welcome-hi");
+  if (!elements.length) return;
+  const hour = new Date().getHours();
+  let greetingText = "Good morning";
+  if (hour >= 12 && hour < 17) {
+    greetingText = "Good afternoon";
+  } else if (hour >= 17) {
+    greetingText = "Good evening";
+  }
+  elements.forEach((el) => {
+    const text = el.textContent || "";
+    const hasComma = text.trim().endsWith(",");
+    el.textContent = greetingText + (hasComma ? "," : "");
+  });
+}
+
+(function() { if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", updateGreeting); } else { updateGreeting(); } })();
+</script>
+</body>
+</html>
