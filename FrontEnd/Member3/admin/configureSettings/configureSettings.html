@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniGuard - Configure Settings</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../../shared/notif-widget.css">
+</head>
+<body>
+  <div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div>
+        <div class="brand-header">
+          <div class="brand-logo">
+            <img src="../../images/logo.png" alt="" class="logopng">
+          </div>
+          <div class="brand-text">
+            <h2>UniGuard Security</h2>
+            <p>System Admin</p>
+          </div>
+        </div>
+
+        <nav class="nav-menu">
+          <span class="menu-label">ADMIN OPERATIONS</span>
+          <a href="../dashboard/index.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> Admin Dashboard</a>
+          <a href="../manageUsers/manageUsers.html" class="nav-item"><i class="fa-solid fa-users-gear"></i> Manage Users</a>
+          <a href="configureSettings.html" class="nav-item active"><i class="fa-solid fa-sliders"></i> Configure Settings</a>
+          <a href="../backupRestore/backupRestore.html" class="nav-item"><i class="fa-solid fa-database"></i> Backup &amp; Restore</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="Auth.logout('/Uniguard/FrontEnd/Member3/admin/loginPage.html')"><i class="fa-solid fa-power-off"></i> LOGOUT</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-wrapper">
+
+      <header class="topbar">
+        <div class="welcome-greet">
+          <div class="welcome-icon"><i class="fa-solid fa-sun"></i></div>
+          <div class="welcome-text">
+            <span class="welcome-hi">Good morning,</span>
+            <span class="welcome-name" id="topbar-welcome-name">Admin</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="time-display">
+            <span id="current-time" class="time-text">--:--:-- PM</span>
+            <span id="current-date" class="date-text">-- ---- ----</span>
+          </div>
+
+          <div class="notification-icon">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge">3</span>
+          </div>
+
+          <div class="user-profile">
+            <div class="avatar-letter" id="topbar-avatar">A</div>
+            <div class="user-info">
+              <span class="user-name" id="topbar-user-name">System Admin</span>
+              <span class="user-role" id="topbar-user-role">ADMIN</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Configure Settings</h1>
+          </div>
+          <button class="btn-secondary" onclick="restoreDefaults()">
+            <i class="fa-solid fa-rotate-left"></i> Restore Defaults
+          </button>
+        </div>
+
+        <!-- GENERAL SETTINGS -->
+        <div class="settings-card">
+          <div class="settings-card-header">
+            <h3><i class="fa-solid fa-building-shield"></i> General Settings</h3>
+            <p>Basic information shown across the UniGuard system.</p>
+          </div>
+
+          <div class="settings-row">
+            <div>
+              <div class="settings-row-label">System Name</div>
+              <div class="settings-row-desc">Displayed in the sidebar and page titles.</div>
+            </div>
+            <div class="settings-row-control">
+              <input type="text" id="setting-system-name" value="UniGuard Security Management System">
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div>
+              <div class="settings-row-label">Support Contact Email</div>
+              <div class="settings-row-desc">Where system alerts and admin notices are sent.</div>
+            </div>
+            <div class="settings-row-control">
+              <input type="email" id="setting-support-email" value="admin@uniguard.lk">
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div>
+              <div class="settings-row-label">System Timezone</div>
+              <div class="settings-row-desc">Used for timestamps across logs and reports.</div>
+            </div>
+            <div class="settings-row-control">
+              <select id="setting-timezone">
+                <option value="Asia/Colombo" selected>Asia/Colombo (GMT+5:30)</option>
+                <option value="UTC">UTC</option>
+                <option value="Asia/Kolkata">Asia/Kolkata (GMT+5:30)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div>
+              <div class="settings-row-label">Maintenance Mode</div>
+              <div class="settings-row-desc">Temporarily block non-admin logins during upgrades.</div>
+            </div>
+            <div class="settings-row-control">
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-maintenance-mode">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECURITY SETTINGS -->
+        <div class="settings-card">
+          <div class="settings-card-header">
+            <h3><i class="fa-solid fa-lock"></i> Security Settings</h3>
+            <p>Rules that control how accounts authenticate and stay signed in.</p>
+          </div>
+
+          <div class="settings-row">
+            <div>
+              <div class="settings-row-label">Session Timeout</div>
+              <div class="settings-row-desc">Automatically log out inactive users after this period.</div>
+            </div>
+            <div class="settings-row-control">
+              <select id="setting-session-timeout">
+                <option value="15">15 minutes</option>
+                <option value="30" selected>30 minutes</option>
+                <option value="60">1 hour</option>
+                <option value="120">2 hours</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div>
+              <div class="settings-row-label">Minimum Password Length</div>
+              <div class="settings-row-desc">Required for all new and updated account passwords.</div>
+            </div>
+            <div class="settings-row-control">
+              <input type="number" id="setting-password-length" value="8" min="6" max="32">
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div>
+              <div class="settings-row-label">Require Two-Factor Authentication</div>
+              <div class="settings-row-desc">Enforce 2FA for Admin and Chief Security Officer accounts.</div>
+            </div>
+            <div class="settings-row-control">
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-2fa" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div>
+              <div class="settings-row-label">Lock Account After Failed Attempts</div>
+              <div class="settings-row-desc">Temporarily lock an account after repeated failed logins.</div>
+            </div>
+            <div class="settings-row-control">
+              <select id="setting-lockout-attempts">
+                <option value="3">3 attempts</option>
+                <option value="5" selected>5 attempts</option>
+                <option value="10">10 attempts</option>
+                <option value="0">Never</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- NOTIFICATION SETTINGS -->
+        <div class="settings-card">
+          <div class="settings-card-header">
+            <h3><i class="fa-solid fa-bell"></i> Notification Settings</h3>
+            <p>Choose which events trigger alerts to admins and security staff.</p>
+          </div>
+
+          <div class="settings-row">
+            <div>
+              <div class="settings-row-label">Email Alerts for Critical Incidents</div>
+              <div class="settings-row-desc">Notify the CSO and Admin team immediately.</div>
+            </div>
+            <div class="settings-row-control">
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-email-incidents" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div>
+              <div class="settings-row-label">SMS Alerts for Failed Logins</div>
+              <div class="settings-row-desc">Send an SMS when repeated failed login attempts are detected.</div>
+            </div>
+            <div class="settings-row-control">
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-sms-logins">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div>
+              <div class="settings-row-label">Daily Activity Summary Email</div>
+              <div class="settings-row-desc">A digest of the day's system activity, sent to admins.</div>
+            </div>
+            <div class="settings-row-control">
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-daily-summary" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-actions-bar">
+          <button class="btn-secondary" onclick="restoreDefaults()">Cancel Changes</button>
+          <button class="btn-primary" onclick="saveSettings()">
+            <i class="fa-solid fa-floppy-disk"></i> Save Settings
+          </button>
+        </div>
+
+      </div>
+
+      <footer class="footer">
+        <div><i class="fa-solid fa-shield"></i> UNIGUARD SECURITY MANAGEMENT SYSTEM</div>
+        <div>UNIVERSITY OF COLOMBO, SRI LANKA</div>
+        <div>&copy; All rights reserved</div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <div class="save-toast" id="saveToast"><i class="fa-solid fa-circle-check"></i> <span id="saveToastText">Settings saved.</span></div>
+
+  <script src="configureSettings.js"></script>
+  <script src="../../shared/notif-widget.js"></script>
+<script>
+
+function updateGreeting() {
+  const elements = document.querySelectorAll(".welcome-hi");
+  if (!elements.length) return;
+  const hour = new Date().getHours();
+  let greetingText = "Good morning";
+  if (hour >= 12 && hour < 17) {
+    greetingText = "Good afternoon";
+  } else if (hour >= 17) {
+    greetingText = "Good evening";
+  }
+  elements.forEach((el) => {
+    const text = el.textContent || "";
+    const hasComma = text.trim().endsWith(",");
+    el.textContent = greetingText + (hasComma ? "," : "");
+  });
+}
+
+(function() { if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", updateGreeting); } else { updateGreeting(); } })();
+</script>
+</body>
+</html>

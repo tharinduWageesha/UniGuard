@@ -1,0 +1,390 @@
+/* ==========================================
+   SHARED NOTIFICATION BELL DROPDOWN
+   Used on every page — click the bell icon
+   in the topbar to see recent notifications
+   right there, no separate page needed.
+   ========================================== */
+
+.uniguard-notif-panel {
+    position: absolute;
+    top: calc(100% + 14px);
+    right: -8px;
+    width: 340px;
+    max-width: 88vw;
+    background: var(--bg-card, #ffffff);
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: 14px;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.16);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+    cursor: default;
+}
+
+.uniguard-notif-panel.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.uniguard-notif-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.1rem;
+    border-bottom: 1px solid var(--border-color, #e2e8f0);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--text-dark, #1e293b);
+}
+
+.uniguard-notif-markread {
+    border: none;
+    background: none;
+    color: var(--primary-blue, #0088ff);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+}
+
+.uniguard-notif-markread:hover {
+    text-decoration: underline;
+}
+
+.uniguard-notif-list {
+    max-height: 340px;
+    overflow-y: auto;
+}
+
+.uniguard-notif-item {
+    display: flex;
+    gap: 0.7rem;
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid var(--border-color, #e2e8f0);
+    position: relative;
+    align-items: flex-start;
+}
+
+.uniguard-notif-item:last-child {
+    border-bottom: none;
+}
+
+.uniguard-notif-item.unread {
+    background: var(--primary-light-blue, #eaf4ff);
+}
+
+.uniguard-notif-icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.8rem;
+}
+
+.uniguard-notif-icon.info { background: #0088ff; }
+.uniguard-notif-icon.alert { background: #ef4444; }
+.uniguard-notif-icon.success { background: #10b981; }
+.uniguard-notif-icon.warning { background: #f59e0b; }
+
+.uniguard-notif-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.uniguard-notif-title-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-dark, #1e293b);
+}
+
+.uniguard-notif-time {
+    font-weight: 500;
+    font-size: 0.68rem;
+    color: var(--text-muted, #64748b);
+    white-space: nowrap;
+}
+
+.uniguard-notif-body p {
+    margin: 0.2rem 0 0;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: var(--text-muted, #64748b);
+}
+
+.uniguard-notif-dot {
+    position: absolute;
+    top: 1rem;
+    right: 0.9rem;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-red, #ef4444);
+}
+
+.uniguard-notif-empty {
+    padding: 2.5rem 1rem;
+    text-align: center;
+    color: var(--text-muted, #64748b);
+    font-size: 0.85rem;
+}
+
+.uniguard-notif-empty i {
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* =======================================================
+   UI REFRESH — header search removed, profile pattern
+   changed to a bordered dropdown-style pill, sidebar nav
+   updated with rounded active state + icon chips.
+   (No color values changed — reuses existing variables)
+   ======================================================= */
+.topbar .search-bar,
+.search-bar{ display:none !important; }
+
+.user-profile-link{
+  display:inline-flex;
+  align-items:center;
+  text-decoration:none;
+  gap:6px;
+}
+.user-profile-link::after{
+  content:"\25BE";
+  font-size:11px;
+  color:var(--text-faint);
+  margin-left:2px;
+}
+.user-profile{
+  display:flex;
+  flex-direction:row-reverse;
+  align-items:center;
+  gap:10px;
+  padding:6px 14px 6px 6px;
+  border:1px solid var(--border-color);
+  border-radius:999px;
+  background:var(--bg-main);
+  transition:background .15s ease, border-color .15s ease;
+}
+.user-profile-link:hover .user-profile{
+  border-color:var(--primary-blue);
+  background:var(--primary-light-blue);
+}
+.user-profile .avatar,
+.user-profile .avatar-letter {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-blue, #0088ff);
+  background: linear-gradient(135deg, #0088ff 0%, #0055c4 100%);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 136, 255, 0.25);
+}
+.user-profile .user-info{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:3px;
+}
+.user-profile .user-name{
+  font-size:13px;
+}
+.user-profile .user-role{
+  font-size:9px;
+  letter-spacing:.4px;
+  padding:2px 8px;
+  border-radius:999px;
+  background:var(--primary-light-blue);
+  color:var(--primary-blue);
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+}
+.user-profile .user-role::before{
+  content:"";
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:var(--primary-blue);
+}
+
+/* Sidebar nav pattern refresh */
+.nav-menu{
+  padding:6px 8px;
+}
+.nav-menu .nav-item{
+  margin:4px 4px;
+  padding:10px 12px;
+  border-radius:10px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.nav-menu .nav-item i{
+  width:26px;
+  height:26px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  background:var(--bg-main);
+  font-size:13px;
+  flex-shrink:0;
+}
+.nav-menu .nav-item:hover{
+  background:var(--primary-light-blue);
+}
+.nav-menu .nav-item:hover i{
+  background:#ffffff;
+}
+.nav-menu .nav-item.active{
+  background:var(--primary-light-blue);
+  color:var(--primary-blue);
+  font-weight:600;
+  border-left:3px solid var(--primary-blue);
+  padding-left:9px;
+}
+.nav-menu .nav-item.active i{
+  background:#ffffff;
+  color:var(--primary-blue);
+}
+.menu-label{
+  display:block;
+  margin:14px 12px 6px;
+  padding-top:10px;
+  border-top:1px solid var(--border-color);
+  font-size:10px;
+  letter-spacing:1px;
+}
+.menu-label:first-of-type{
+  border-top:none;
+  margin-top:6px;
+}
+
+/* ===== Corner fix: move time/notif/profile cluster to the opposite (right) corner ===== */
+.topbar{
+  justify-content:flex-end !important;
+}
+
+
+/* ======================================================
+   UI REFRESH ROUND 2 — fix right-side alignment after
+   removing the search bar, and repurpose that space with
+   a duty-status indicator instead of leaving it empty.
+   ====================================================== */
+.topbar-right{
+  margin-left:auto;
+}
+.duty-status{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 16px;
+  border:1px solid var(--border-color);
+  border-radius:999px;
+  background:var(--bg-main);
+}
+.duty-dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--accent-green);
+  flex-shrink:0;
+}
+.duty-text{
+  display:flex;
+  flex-direction:column;
+  line-height:1.25;
+}
+.duty-label{
+  font-size:12px;
+  font-weight:700;
+  color:var(--text-dark);
+}
+.duty-sub{
+  font-size:10px;
+  color:var(--text-muted);
+}
+
+
+/* ======================================================
+   UI REFRESH ROUND 3 — swap duty-status for a personalized
+   welcome greeting (name pulled from that page's own profile).
+   ====================================================== */
+.welcome-greet{
+  display:flex;
+  flex-direction:column;
+  line-height:1.25;
+  padding-left:4px;
+}
+.welcome-hi{
+  font-size:11px;
+  color:var(--text-muted);
+  letter-spacing:.2px;
+}
+.welcome-name{
+  font-size:15px;
+  font-weight:700;
+  color:var(--text-dark);
+}
+
+
+/* ======================================================
+   UI REFRESH ROUND 4 — restyle the welcome greeting with
+   an icon chip + accent-colored name instead of plain text.
+   ====================================================== */
+.welcome-greet{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:12px;
+  padding-left:0;
+}
+.welcome-icon{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:var(--primary-light-blue);
+  color:var(--primary-blue);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:15px;
+  flex-shrink:0;
+}
+.welcome-text{
+  display:flex;
+  flex-direction:column;
+  line-height:1.2;
+}
+.welcome-hi{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  font-weight:700;
+  color:var(--text-muted);
+}
+.welcome-name{
+  font-size:17px;
+  font-weight:800;
+  color:var(--primary-blue);
+}

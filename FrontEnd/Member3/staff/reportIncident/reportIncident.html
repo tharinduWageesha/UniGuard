@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniGuard - Emergency Contact</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../../shared/notif-widget.css">
+</head>
+<body>
+  <div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div>
+        <div class="brand-header">
+          <div class="brand-logo">
+            <img src="../../images/logo.png" alt="" class="logopng">
+          </div>
+          <div class="brand-text">
+            <h2>UniGuard Security</h2>
+            <p>Staff Portal</p>
+          </div>
+        </div>
+
+        <nav class="nav-menu">
+          <span class="menu-label">STUDENT SERVICES</span>
+          <a href="../dashboard/index.html" class="nav-item"><i class="fa-solid fa-house"></i> Dashboard</a>
+          <a href="../lostFound/lostFound.html" class="nav-item"><i class="fa-solid fa-box-archive"></i> Lost &amp; Found</a>
+          <a href="../vehiclePass/vehiclePass.html" class="nav-item"><i class="fa-solid fa-car"></i> Vehicle Pass</a>
+          <a href="reportIncident.html" class="nav-item active"><i class="fa-solid fa-phone-volume"></i> Emergency Contact</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="window.location.href='../loginPage.html'"><i class="fa-solid fa-power-off"></i> LOGOUT</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-wrapper">
+
+      <header class="topbar">
+        <div class="welcome-greet">
+          <div class="welcome-icon"><i class="fa-solid fa-sun"></i></div>
+          <div class="welcome-text">
+            <span class="welcome-hi">Good morning,</span>
+            <span class="welcome-name">A.M.D</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="time-display">
+            <span id="current-time" class="time-text">--:--:-- PM</span>
+            <span id="current-date" class="date-text">-- ---- ----</span>
+          </div>
+
+          <div class="notification-icon">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge">2</span>
+          </div>
+
+          <a href="../myprofile.html" class="user-profile-link">
+          <div class="user-profile">
+            <img src="https://i.pravatar.cc/100?img=45" alt="Profile Avatar" class="avatar">
+            <div class="user-info">
+              <span class="user-name">A.M.D Amna</span>
+              <span class="user-role">STAFF</span>
+            </div>
+          </div>
+          </a>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Emergency Contact</h1>
+          </div>
+        </div>
+
+        <div class="emergency-hero">
+          <div class="emergency-hero-info">
+            <div class="emergency-hero-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div>
+              <h2>Campus Security Control Room</h2>
+              <p>Available around the clock, every day of the year.</p>
+              <div class="emergency-hero-number">+94 11 258 1911</div>
+            </div>
+          </div>
+          <a href="tel:+94112581911" class="emergency-call-btn">
+            <i class="fa-solid fa-phone"></i> Call Now
+          </a>
+        </div>
+
+        <div class="quickdial-grid">
+          <div class="quickdial-card">
+            <div class="quickdial-card-icon"><i class="fa-solid fa-truck-medical"></i></div>
+            <h4>Medical Emergency</h4>
+            <p>Injuries, sudden illness, or anything needing an ambulance.</p>
+            <div class="quickdial-number">+94 11 258 1922</div>
+            <a href="tel:+94112581922" class="quickdial-call"><i class="fa-solid fa-phone"></i> Call</a>
+          </div>
+
+          <div class="quickdial-card">
+            <div class="quickdial-card-icon"><i class="fa-solid fa-fire-extinguisher"></i></div>
+            <h4>Fire &amp; Rescue</h4>
+            <p>Fires, gas leaks, or anything that needs the fire brigade.</p>
+            <div class="quickdial-number">+94 11 258 1933</div>
+            <a href="tel:+94112581933" class="quickdial-call"><i class="fa-solid fa-phone"></i> Call</a>
+          </div>
+
+          <div class="quickdial-card">
+            <div class="quickdial-card-icon"><i class="fa-solid fa-user-tie"></i></div>
+            <h4>Dean of Students</h4>
+            <p>For concerns that aren't an emergency but still need attention.</p>
+            <div class="quickdial-number">+94 11 258 1944</div>
+            <a href="tel:+94112581944" class="quickdial-call"><i class="fa-solid fa-phone"></i> Call</a>
+          </div>
+        </div>
+
+        <p class="emergency-note"><i class="fa-solid fa-circle-info"></i> You can also walk in to the security office at the Main Gate for anything non-urgent.</p>
+
+      </div>
+
+      <footer class="footer">
+        <div><i class="fa-solid fa-shield"></i> UNIGUARD SECURITY MANAGEMENT SYSTEM</div>
+        <div>UNIVERSITY OF COLOMBO, SRI LANKA</div>
+        <div>&copy; All rights reserved</div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <script src="reportIncident.js"></script>
+  <script src="../../shared/notif-widget.js"></script>
+<script>
+
+function updateGreeting() {
+  const elements = document.querySelectorAll(".welcome-hi");
+  if (!elements.length) return;
+  const hour = new Date().getHours();
+  let greetingText = "Good morning";
+  if (hour >= 12 && hour < 17) {
+    greetingText = "Good afternoon";
+  } else if (hour >= 17) {
+    greetingText = "Good evening";
+  }
+  elements.forEach((el) => {
+    const text = el.textContent || "";
+    const hasComma = text.trim().endsWith(",");
+    el.textContent = greetingText + (hasComma ? "," : "");
+  });
+}
+
+(function() { if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", updateGreeting); } else { updateGreeting(); } })();
+</script>
+</body>
+</html>
