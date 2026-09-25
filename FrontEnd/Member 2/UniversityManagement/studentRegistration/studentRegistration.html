@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Registration | UniGuard Security</title>
+
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="../../shared/base.css">
+
+    <!-- Student Registration Page CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* STUDENT REGISTRATION TOPBAR FIX — base.css is NOT changed */
+    .topbar {
+      justify-content: space-between !important;
+    }
+
+   /* ===== EXACT DASHBOARD WELCOME STYLE ===== */
+
+.topbar .welcome-greet {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding-left: 0 !important;
+    margin: 0 !important;
+}
+
+.topbar .welcome-icon {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+    border-radius: 50% !important;
+
+    background: var(--color-primary-light) !important;
+    color: var(--color-primary) !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+}
+
+.topbar .welcome-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    min-height: 18px !important;
+    max-width: 18px !important;
+    max-height: 18px !important;
+    display: block !important;
+}
+
+.topbar .welcome-text {
+    display: flex !important;
+    flex-direction: column !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.topbar .welcome-hi {
+    font-size: 10px !important;
+    text-transform: uppercase !important;
+    letter-spacing: .6px !important;
+    font-weight: 700 !important;
+    color: var(--color-text-muted) !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.topbar .welcome-name {
+    font-size: 17px !important;
+    font-weight: 800 !important;
+    color: var(--color-primary) !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* ===== STUDENT DIRECTORY DESIGN ===== */
+
+.student-directory-bar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 24px !important;
+
+    margin: 0 0 24px !important;
+    padding: 17px 20px !important;
+
+    background: #ffffff !important;
+    border: 1px solid #dbe5f1 !important;
+    border-radius: 10px !important;
+
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05) !important;
+}
+
+.directory-info {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    min-width: 220px !important;
+}
+
+.directory-icon {
+    width: 42px !important;
+    height: 42px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    color: #2563eb !important;
+    background: #eaf1ff !important;
+    border-radius: 9px !important;
+}
+
+.directory-label {
+    margin: 0 0 3px !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    color: #64748b !important;
+}
+
+.directory-info h3 {
+    margin: 0 !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: #1e293b !important;
+}
+
+.directory-info h3 span {
+    margin-left: 5px !important;
+    color: #2563eb !important;
+}
+
+.directory-search {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: min(100%, 520px) !important;
+}
+
+.nic-search-input {
+    position: relative !important;
+    flex: 1 !important;
+}
+
+.nic-search-input svg {
+    position: absolute !important;
+    top: 12px !important;
+    left: 13px !important;
+    color: #64748b !important;
+}
+
+.nic-search-input input {
+    width: 100% !important;
+    min-height: 42px !important;
+    padding: 10px 12px 10px 42px !important;
+
+    font-family: inherit !important;
+    font-size: 13px !important;
+
+    color: #1e293b !important;
+    background: #f8fafc !important;
+
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 6px !important;
+    outline: none !important;
+}
+
+.nic-search-input input:focus {
+    border-color: #2563eb !important;
+    background: #ffffff !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+}
+
+.nic-search-btn {
+    min-height: 42px !important;
+    padding: 10px 16px !important;
+
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+
+    color: #ffffff !important;
+    background: #2563eb !important;
+
+    border: 1px solid #2563eb !important;
+    border-radius: 6px !important;
+
+    cursor: pointer !important;
+}
+
+.nic-search-btn:hover {
+    background: #1d4ed8 !important;
+}
+
+@media (max-width: 850px) {
+    .student-directory-bar {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .directory-search {
+        width: 100% !important;
+    }
+}
+  </style>
+</head>
+
+
+<body>
+
+    <div class="app-shell">
+
+        <!-- ================= SIDEBAR ================= -->
+        <aside class="sidebar" id="sidebar">
+
+            <!-- Brand -->
+            <div class="sidebar-brand">
+
+              <div class="brand-logo">
+                <img src="../../images/WhatsApp Image 2026-07-24 at 17.24.27.jpeg" alt="UniGuard Logo" class="logo-img">
+             </div>
+
+                <div class="brand-text">
+                    <h1>UniGuard Security</h1>
+                    <p>UNIVERSITY MANAGEMENT</p>
+                </div>
+
+            </div>
+
+
+            <div class="sidebar-section-label">
+                MANAGEMENT OPERATIONS
+            </div>
+
+
+            <!-- Navigation -->
+            <nav class="sidebar-nav">
+
+                <!-- Dashboard -->
+                <a href="../dashboard/dashboard.html" class="nav-item">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round"
+                         width="18"
+                         height="18">
+
+                        <path d="M3 3h8v8H3zM13 3h8v5h-8zM13 12h8v9h-8zM3 15h8v6H3z"/>
+
+                    </svg>
+
+                    <span>Dashboard</span>
+
+                </a>
+
+
+                <!-- Student Registration -->
+                <a href="./studentRegistration.html"
+                   class="nav-item active">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round"
+                         width="18"
+                         height="18">
+
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+
+                        <circle cx="9"
+                                cy="7"
+                                r="4"/>
+
+                        <line x1="19"
+                              y1="8"
+                              x2="19"
+                              y2="14"/>
+
+                        <line x1="22"
+                              y1="11"
+                              x2="16"
+                              y2="11"/>
+
+                    </svg>
+
+                    <span>Student Registration</span>
+
+                </a>
+
+<a href="../staffRegistration/staffRegistration.html" class="nav-item">
+
+    <svg viewBox="0 0 24 24"
+         fill="none"
+         stroke="currentColor"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         width="18"
+         height="18">
+
+        <rect x="3"
+              y="5"
+              width="18"
+              height="14"
+              rx="2"></rect>
+
+        <path d="M8 5V3h8v2"></path>
+
+        <circle cx="12"
+                cy="11"
+                r="2.5"></circle>
+
+        <path d="M7.5 17
+                 c0.8-2 2.2-3 4.5-3
+                 s3.7 1 4.5 3"></path>
+
+    </svg>
+
+    <span>Staff Registration</span>
+
+</a>
+
+                <!-- Visitor Approvals -->
+                <a href="../visitorApprovals/visitorApprovals.html"
+                   class="nav-item">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round"
+                         width="18"
+                         height="18">
+
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+
+                        <path d="M22 4 12 14.01l-3-3"/>
+
+                    </svg>
+
+                    <span>Visitor Approvals</span>
+
+                </a>
+
+
+                <!-- Manage Events -->
+                <a href="../manageEvents/manageEvents.html"
+                   class="nav-item">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round"
+                         width="18"
+                         height="18">
+
+                        <rect x="3"
+                              y="4"
+                              width="18"
+                              height="18"
+                              rx="2"/>
+
+                        <path d="M16 2v4M8 2v4M3 10h18"/>
+
+                        <path d="M9 16l2 2 4-4"/>
+
+                    </svg>
+
+                    <span>Manage Events</span>
+
+                </a>
+
+                <!-- Vehicle Passes -->
+                <a href="../vehiclePasses/vehiclePasses.html"
+                   class="nav-item">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round"
+                         width="18"
+                         height="18">
+
+                        <path d="M5 17h14"/>
+
+                        <path d="M5 17a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
+
+                        <path d="M19 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0Z"/>
+
+                        <path d="M3 17V9l2-5h14l2 5v8"/>
+
+                        <path d="M3 12h18"/>
+
+                    </svg>
+
+                    <span>Vehicle Passes</span>
+
+                </a>
+
+                <!-- Incident statics-->
+                    <a href="../incidentStatistics/incidentStatistics.html" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg><span>Incident Statistics</span></a>
+
+
+
+
+                <!-- Reports -->
+                <!--<a href="../reports/reports.html"
+                   class="nav-item">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round"
+                         width="18"
+                         height="18">
+
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+
+                        <path d="M14 2v6h6"/>
+
+                        <path d="M8 13h8M8 17h8M8 9h2"/>
+
+                    </svg>
+
+                    <span>Reports</span>
+
+                </a>-->
+
+
+                <!-- Notifications -->
+                <!--<a href="../notifications/notifications.html"
+                   class="nav-item">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round"
+                         width="18"
+                         height="18">
+
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+
+                    </svg>
+
+                    <span>Notifications</span>
+
+                </a>-->
+
+
+                
+
+                <!-- Profile -->
+               <!---- <a href="../profile/profile.html"
+                   class="nav-item">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round"
+                         width="18"
+                         height="18">
+
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+
+                        <circle cx="12"
+                                cy="7"
+                                r="4"/>
+
+                    </svg>
+
+                    <span>Profile</span>
+
+                </a>-->
+
+                
+
+            </nav>
+
+
+            <!-- Logout -->
+            <div class="sidebar-logout">
+
+                <button class="btn-logout"
+                        type="button"
+                        data-logout>
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round"
+                         width="16"
+                         height="16">
+
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+
+                        <path d="M16 17l5-5-5-5"/>
+
+                        <path d="M21 12H9"/>
+
+                    </svg>
+
+                    <span>Logout</span>
+
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ================= MAIN CONTENT ================= -->
+        <div class="main-content">
+
+            <!-- ================= TOPBAR ================= -->
+           <header class="topbar">
+
+    <!-- Mobile Menu -->
+    <button class="mobile-menu-toggle"
+            type="button"
+            data-menu-toggle>
+
+        <svg viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round"
+             width="20"
+             height="20">
+
+            <path d="M3 12h18M3 6h18M3 18h18"/>
+
+        </svg>
+
+    </button>
+
+
+    <!-- Search -->
+    <div class="welcome-greet">
+          <div class="welcome-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></div>
+          <div class="welcome-text">
+            <span class="welcome-hi">Good morning,</span>
+            <span class="welcome-name">Nadeeka</span>
+          </div>
+        </div>
+
+
+    <!-- Topbar Right -->
+    <div class="topbar-right">
+
+
+        <!-- Date and Time -->
+        <div class="topbar-datetime">
+
+            <div class="time"
+                 data-clock-time>
+                --:--:--
+            </div>
+
+            <div class="date"
+                 data-clock-date>
+                LOADING...
+            </div>
+
+        </div>
+
+
+        <!-- NOTIFICATION -->
+        <div class="topbar-notif">
+
+            <!-- Bell Button -->
+            <button class="notif-btn"
+                    type="button"
+                    data-notif-btn
+                    aria-label="Notifications">
+
+                <svg viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="2"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                     width="17"
+                     height="17">
+
+                    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
+
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+
+                </svg>
+
+                <span class="notif-badge">3</span>
+
+            </button>
+
+
+            <!-- Notification Dropdown -->
+            <div class="notif-dropdown"
+                 data-notif-dropdown>
+
+                <div class="notif-dropdown-header">
+
+                    <span>Notifications</span>
+
+                    <span class="badge badge-info">
+                        3 New
+                    </span>
+
+                </div>
+
+
+                <div class="notif-dropdown-item">
+
+                    <span class="notif-dot"></span>
+
+                    <div>
+
+                        <p>
+                            Your visitor pass has been approved.
+                        </p>
+
+                        <span>
+                            5 minutes ago
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="notif-dropdown-item">
+
+                    <span class="notif-dot"></span>
+
+                    <div>
+
+                        <p>
+                            New announcement posted by University Management.
+                        </p>
+
+                        <span>
+                            1 hour ago
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="notif-dropdown-item">
+
+                    <span class="notif-dot"></span>
+
+                    <div>
+
+                        <p>
+                            Reminder: upcoming campus event tomorrow.
+                        </p>
+
+                        <span>
+                            Yesterday
+                        </span>
+
+                    </div>
+
+                </div>
+               
+
+            </div>
+
+        </div>
+
+
+        <!-- PROFILE - LINKED TO profile.html -->
+        <a href="../profile/profile.html"
+           class="topbar-user"
+           title="Go to Profile">
+
+            <img src="https://i.pravatar.cc/80?img=47"
+                 alt="Dr. Nadeeka Fernando">
+
+            <div>
+
+                <div class="user-name">
+                    Dr. Nadeeka Fernando
+                </div>
+
+                <span class="role-badge">
+                    UNIVERSITY MANAGEMENT
+                </span>
+
+            </div>
+
+        </a>
+
+
+    </div>
+
+</header>
+
+
+            <!-- ================= PAGE BODY ================= -->
+            <main class="page-body">
+
+                <!-- Page Header -->
+                <!--<div class="page-header">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            STUDENT MANAGEMENT
+                        </p>
+
+                        <h1>
+                            Student Registration
+                        </h1>
+
+                        <p class="page-subtitle">
+                            Register and manage new students in the university management system.
+                        </p>
+
+                    </div>
+
+                </div>-->
+                <div class="page-banner">
+    <h2>Student Registration</h2>
+    
+</div>
+
+
+<!-- Student Directory Bar -->
+<section class="student-directory-bar">
+    <div class="directory-info">
+        <div class="directory-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" width="21" height="21">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+        </div>
+
+        <div>
+            <p class="directory-label">STUDENT DIRECTORY</p>
+            <h3>Total Students <span id="studentCount">1,248</span></h3>
+        </div>
+    </div>
+
+    <div class="directory-search">
+        <div class="nic-search-input">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" width="18" height="18">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+            </svg>
+
+            <input
+                type="text"
+                id="studentNicSearch"
+                placeholder="Search student by NIC number">
+        </div>
+
+        <button type="button" class="nic-search-btn" id="studentSearchBtn">
+            Search Student
+        </button>
+    </div>
+</section>
+
+
+                <!-- ================= REGISTRATION PANEL ================= -->
+                <section class="panel student-registration-panel">
+<div class="panel-header">
+    <div>
+        <h2 class="panel-title">
+            New Student Registration
+        </h2>
+    </div>
+
+    <div class="bulk-import-wrapper">
+        <button
+            type="button"
+            class="btn btn-secondary bulk-import-btn"
+            id="bulkImportBtn">
+
+            <svg viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 width="17"
+                 height="17">
+
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+
+                <polyline points="7 10 12 15 17 10"/>
+
+                <line x1="12"
+                      y1="15"
+                      x2="12"
+                      y2="3"/>
+            </svg>
+
+            Bulk Import
+        </button>
+
+        <input
+            type="file"
+            id="bulkImportFile"
+            accept=".csv"
+            hidden>
+    </div>
+</div>
+                   
+
+
+                    <!-- Registration Form -->
+                    <form id="studentRegistrationForm"
+                          class="student-registration-form"
+                          novalidate>
+
+
+                        <!-- PERSONAL INFORMATION -->
+                        <div class="form-section">
+
+
+
+                            <div class="form-grid">
+
+                                <div class="form-group">
+
+                                    <label for="studentId">
+                                        Student ID
+                                        <span>*</span>
+                                    </label>
+
+                                    <input type="text"
+                                           id="studentId"
+                                           name="studentId"
+                                           placeholder="e.g. STU2026001"
+                                           required>
+
+                                    <small class="field-error">
+                                        Student ID is required.
+                                    </small>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="nic">
+                                        NIC / Passport Number
+                                        <span>*</span>
+                                    </label>
+
+                                    <input type="text"
+                                           id="nic"
+                                           name="nic"
+                                           placeholder="Enter NIC or Passport Number"
+                                           required>
+
+                                    <small class="field-error">
+                                        NIC or Passport Number is required.
+                                    </small>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="firstName">
+                                        First Name
+                                        <span>*</span>
+                                    </label>
+
+                                    <input type="text"
+                                           id="firstName"
+                                           name="firstName"
+                                           placeholder="Enter first name"
+                                           required>
+
+                                    <small class="field-error">
+                                        First name is required.
+                                    </small>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="lastName">
+                                        Last Name
+                                        <span>*</span>
+                                    </label>
+
+                                    <input type="text"
+                                           id="lastName"
+                                           name="lastName"
+                                           placeholder="Enter last name"
+                                           required>
+
+                                    <small class="field-error">
+                                        Last name is required.
+                                    </small>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="dob">
+                                        Date of Birth
+                                        <span>*</span>
+                                    </label>
+
+                                    <input type="date"
+                                           id="dob"
+                                           name="dob"
+                                           required>
+
+                                    <small class="field-error">
+                                        Date of birth is required.
+                                    </small>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="gender">
+                                        Gender
+                                        <span>*</span>
+                                    </label>
+
+                                    <select id="gender"
+                                            name="gender"
+                                            required>
+
+                                        <option value="">
+                                            Select gender
+                                        </option>
+
+                                        <option value="Male">
+                                            Male
+                                        </option>
+
+                                        <option value="Female">
+                                            Female
+                                        </option>
+
+                                        <option value="Other">
+                                            Other
+                                        </option>
+
+                                    </select>
+
+                                    <small class="field-error">
+                                        Please select a gender.
+                                    </small>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="email">
+                                        Email Address
+                                        <span>*</span>
+                                    </label>
+
+                                    <input type="email"
+                                           id="email"
+                                           name="email"
+                                           placeholder="student@gmail.com"
+                                           required>
+
+                                    <small class="field-error">
+                                        Enter a valid email address.
+                                    </small>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="phone">
+                                        Phone Number
+                                        <span>*</span>
+                                    </label>
+
+                                    <input type="tel"
+                                           id="phone"
+                                           name="phone"
+                                           placeholder="0771234567"
+                                           required>
+
+                                    <small class="field-error">
+                                        Phone number is required.
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ACADEMIC INFORMATION -->
+                        <div class="form-section">
+
+                            <h3 class="form-section-title">
+
+                                <svg viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2"
+                                     stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     width="18"
+                                     height="18">
+
+                                    <path d="M22 10v6"/>
+
+                                    <path d="M6 12v5c3 2 9 2 12 0v-5"/>
+
+                                    <path d="m2 9 10-5 10 5-10 5Z"/>
+
+                                </svg>
+
+                                Academic Information
+
+                            </h3>
+
+
+                            <div class="form-grid">
+
+                                <div class="form-group">
+
+                                    <label for="faculty">
+                                        Faculty
+                                        <span>*</span>
+                                    </label>
+
+                                    <select id="faculty"
+                                            name="faculty"
+                                            required>
+
+                                        <option value="">
+                                            Select faculty
+                                        </option>
+
+                                        <option value="Computing">
+                                            Faculty of Computing
+                                        </option>
+
+                                        <option value="Engineering">
+                                            Faculty of Engineering
+                                        </option>
+
+                                        <option value="Business">
+                                            Faculty of Business
+                                        </option>
+
+                                        <option value="Science">
+                                            Faculty of Science
+                                        </option>
+
+                                        <option value="Management">
+                                            Faculty of Management
+                                        </option>
+
+                                    </select>
+
+                                    <small class="field-error">
+                                        Please select a faculty.
+                                    </small>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="department">
+                                        Department
+                                        <span>*</span>
+                                    </label>
+
+                                    <input type="text"
+                                           id="department"
+                                           name="department"
+                                           placeholder="Enter department"
+                                           required>
+
+                                    <small class="field-error">
+                                        Department is required.
+                                    </small>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="programme">
+                                        Programme / Course
+                                        <span>*</span>
+                                    </label>
+
+                                    <input type="text"
+                                           id="programme"
+                                           name="programme"
+                                           placeholder="Enter programme"
+                                           required>
+
+                                    <small class="field-error">
+                                        Programme is required.
+                                    </small>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="academicYear">
+                                        Academic Year
+                                        <span>*</span>
+                                    </label>
+
+                                    <select id="academicYear"
+                                            name="academicYear"
+                                            required>
+
+                                        <option value="">
+                                            Select academic year
+                                        </option>
+
+                                        <option value="Year 1">
+                                            Year 1
+                                        </option>
+
+                                        <option value="Year 2">
+                                            Year 2
+                                        </option>
+
+                                        <option value="Year 3">
+                                            Year 3
+                                        </option>
+
+                                        <option value="Year 4">
+                                            Year 4
+                                        </option>
+
+                                    </select>
+
+                                    <small class="field-error">
+                                        Please select an academic year.
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ADDRESS INFORMATION -->
+                        <div class="form-section">
+
+                            <h3 class="form-section-title">
+
+                                <svg viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2"
+                                     stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     width="18"
+                                     height="18">
+
+                                    <path d="M20 10c0 6-8 11-8 11S4 16 4 10a8 8 0 1 1 16 0Z"/>
+
+                                    <circle cx="12"
+                                            cy="10"
+                                            r="3"/>
+
+                                </svg>
+
+                                Address Information
+
+                            </h3>
+
+
+                            <div class="form-grid">
+
+                                <div class="form-group full-width">
+
+                                    <label for="address">
+                                        Permanent Address
+                                        <span>*</span>
+                                    </label>
+
+                                    <textarea id="address"
+                                              name="address"
+                                              rows="4"
+                                              placeholder="Enter permanent address"
+                                              required></textarea>
+
+                                    <small class="field-error">
+                                        Address is required.
+                                    </small>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="city">
+                                        City
+                                        <span>*</span>
+                                    </label>
+
+                                    <input type="text"
+                                           id="city"
+                                           name="city"
+                                           placeholder="Enter city"
+                                           required>
+
+                                    <small class="field-error">
+                                        City is required.
+                                    </small>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="district">
+                                        District
+                                        <span>*</span>
+                                    </label>
+
+                                    <input type="text"
+                                           id="district"
+                                           name="district"
+                                           placeholder="Enter district"
+                                           required>
+
+                                    <small class="field-error">
+                                        District is required.
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- EMERGENCY CONTACT -->
+                        <div class="form-section">
+
+                            <h3 class="form-section-title">
+
+                                <svg viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2"
+                                     stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     width="18"
+                                     height="18">
+
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2
+                                             19.79 19.79 0 0 1-8.63-3.07
+                                             19.5 19.5 0 0 1-6-6
+                                             19.79 19.79 0 0 1-3.07-8.67
+                                             A2 2 0 0 1 4.11 2h3
+                                             a2 2 0 0 1 2 1.72
+                                             c.12.9.33 1.78.62 2.62
+                                             a2 2 0 0 1-.45 2.11L8.01 9.72
+                                             a16 16 0 0 0 6 6l1.27-1.27
+                                             a2 2 0 0 1 2.11-.45
+                                             c.84.29 1.72.5 2.62.62
+                                             A2 2 0 0 1 22 16.92Z"/>
+
+                                </svg>
+
+                                Emergency Contact
+
+                            </h3>
+
+
+                            <div class="form-grid">
+
+                                <div class="form-group">
+
+                                    <label for="emergencyName">
+                                        Contact Person Name
+                                        <span>*</span>
+                                    </label>
+
+                                    <input type="text"
+                                           id="emergencyName"
+                                           name="emergencyName"
+                                           placeholder="Enter contact person name"
+                                           required>
+
+                                    <small class="field-error">
+                                        Contact person name is required.
+                                    </small>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="relationship">
+                                        Relationship
+                                        <span>*</span>
+                                    </label>
+
+                                    <input type="text"
+                                           id="relationship"
+                                           name="relationship"
+                                           placeholder="e.g. Parent / Guardian"
+                                           required>
+
+                                    <small class="field-error">
+                                        Relationship is required.
+                                    </small>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="emergencyPhone">
+                                        Emergency Phone
+                                        <span>*</span>
+                                    </label>
+
+                                    <input type="tel"
+                                           id="emergencyPhone"
+                                           name="emergencyPhone"
+                                           placeholder="0771234567"
+                                           required>
+
+                                    <small class="field-error">
+                                        Emergency phone number is required.
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- FORM ACTIONS -->
+                        <div class="form-actions">
+
+                            <button type="reset"
+                                    class="btn btn-secondary"
+                                    id="clearFormBtn">
+
+                                <svg viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2"
+                                     stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     width="17"
+                                     height="17">
+
+                                    <path d="M3 12a9 9 0 1 0 3-6.7"/>
+
+                                    <path d="M3 4v5h5"/>
+
+                                </svg>
+
+                                Clear Form
+
+                            </button>
+
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+
+                                <svg viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2"
+                                     stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     width="17"
+                                     height="17">
+
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+
+                                    <circle cx="9"
+                                            cy="7"
+                                            r="4"/>
+
+                                    <line x1="19"
+                                          y1="8"
+                                          x2="19"
+                                          y2="14"/>
+
+                                    <line x1="22"
+                                          y1="11"
+                                          x2="16"
+                                          y2="11"/>
+
+                                </svg>
+
+                                Register Student
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+            </main>
+
+
+            <!-- ================= FOOTER ================= -->
+            <footer class="app-footer">
+
+                <span>
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round"
+                         width="13"
+                         height="13">
+
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>
+
+                    </svg>
+
+                    UNIGUARD SECURITY MANAGEMENT SYSTEM
+                </span>
+
+                <span>
+                    UNIVERSITY OF COLOMBO, SRI LANKA
+                </span>
+
+                <span>
+                    &copy; ALL RIGHTS RESERVED
+                </span>
+
+            </footer>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= SCRIPTS ================= -->
+
+    <!-- Shared JavaScript -->
+    <script src="../../../auth.js"></script>
+    <script src="../../shared/base.js"></script>
+
+    <!-- Student Registration JavaScript -->
+    <script src="studentRegistration.js"></script>
+
+<script>
+
+function updateGreeting() {
+  const elements = document.querySelectorAll(".welcome-hi");
+  if (!elements.length) return;
+  const hour = new Date().getHours();
+  let greetingText = "Good morning";
+  if (hour >= 12 && hour < 17) {
+    greetingText = "Good afternoon";
+  } else if (hour >= 17) {
+    greetingText = "Good evening";
+  }
+  elements.forEach((el) => {
+    const text = el.textContent || "";
+    const hasComma = text.trim().endsWith(",");
+    el.textContent = greetingText + (hasComma ? "," : "");
+  });
+}
+
+(function() { if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", updateGreeting); } else { updateGreeting(); } })();
+</script>
+</body>
+
+</html>
