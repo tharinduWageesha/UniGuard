@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniGuard - Assign Tasks</title>
+
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../../assets/css/common.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="brand-header">
+                <div class="brand-logo">
+                    <img src="../../images/logo.png" alt="UniGuard Logo" class="logopng">
+                </div>
+                <div class="brand-text">
+                    <h2>UniGuard Security</h2>
+                    <p>Officer in Charge</p>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <span class="menu-label">OIC OPERATIONS</span>
+                <a href="../dashboard/dashboard.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> OIC Dashboard</a>
+                <a href="assignTask.html" class="nav-item active"><i class="fa-solid fa-list-check"></i> Assign Tasks</a>
+                <a href="../csoDirectives/csoDirectives.html" class="nav-item"><i class="fa-solid fa-user-shield"></i> CSO Management</a>
+                <a href="../incidents/incidents.html" class="nav-item"><i class="fa-solid fa-triangle-exclamation"></i>Incident Reports</a>
+                <a href="../visitorPass/visitorPass.html" class="nav-item"><i class="fa-solid fa-id-card"></i> Visitor Requests</a>
+                <a href="../events/events.html" class="nav-item"><i class="fa-solid fa-car-side"></i> Manage Events</a>
+                <a href="../nightVehicle/nightVehicle.html" class="nav-item"><i class="fa-solid fa-car-side"></i> Night Vehicle Entry</a>
+                <a href="../reports/reports.html" class="nav-item"><i class="fa-solid fa-file-invoice"></i> Department Reports</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-logout" onclick="window.location.href='../loginPage.html'"><i class="fa-solid fa-power-off"></i> LOGOUT</button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-wrapper">
+
+            <!-- TOPBAR HEADER -->
+            <header class="topbar">
+                <div class="welcome-greet">
+          <div class="welcome-icon"><i class="fa-solid fa-sun"></i></div>
+          <div class="welcome-text">
+            <span class="welcome-hi">Good morning,</span>
+            <span class="welcome-name">Saman</span>
+          </div>
+          <div class="officer-status-picker" data-status-picker>
+            <span class="status-indicator-dot active" data-status-dot></span>
+            <select class="status-select" data-status-select title="Change your active status">
+              <option value="On Active">On Active</option>
+              <option value="On Leave">On Leave</option>
+            </select>
+          </div>
+        </div>
+
+                <div class="topbar-right">
+                    <div class="time-display">
+                        <span id="current-time" class="time-text">--:--:-- PM</span>
+                        <span id="current-date" class="date-text">-- ---- ----</span>
+                    </div>
+
+                    <div class="notification-wrapper">
+                      <div class="notification-icon" id="notifBell">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge" id="notifBadge">3</span>
+                      </div>
+                      <div class="notification-dropdown" id="notifDropdown">
+                        <div class="notif-header">
+                          <h4>Notifications</h4>
+                          <a href="#" id="notifMarkRead">Mark all as read</a>
+                        </div>
+                        <div class="notif-list">
+                          <div class="notif-item unread">
+                            <div class="notif-icon danger"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            <div class="notif-body">
+                              <p class="notif-title">Critical Incident Alert</p>
+                              <p class="notif-desc">Unauthorized breach reported at Gate 02. OIC assigned.</p>
+                              <span class="notif-time">10 mins ago</span>
+                            </div>
+                          </div>
+                          <div class="notif-item unread">
+                            <div class="notif-icon warning"><i class="fa-solid fa-id-card"></i></div>
+                            <div class="notif-body">
+                              <p class="notif-title">VIP Visitor Request</p>
+                              <p class="notif-desc">Pending clearance approval for Ministry Delegation.</p>
+                              <span class="notif-time">45 mins ago</span>
+                            </div>
+                          </div>
+                          <div class="notif-item">
+                            <div class="notif-icon info"><i class="fa-solid fa-file-lines"></i></div>
+                            <div class="notif-body">
+                              <p class="notif-title">Daily Operations Report</p>
+                              <p class="notif-desc">Jayasinghe submitted shift summary report.</p>
+                              <span class="notif-time">2 hours ago</span>
+                            </div>
+                          </div>
+                        </div>
+                        <a href="#" class="notif-footer">View All Activity Logs</a>
+                      </div>
+                    </div>
+
+                    <a href="../myprofile.html" class="user-profile-link">
+                    <div class="user-profile">
+                        <img src="https://i.pravatar.cc/100?img=68" alt="Profile Avatar" class="avatar">
+                        <div class="user-info">
+                            <span class="user-name">Saman Perera</span>
+                            <span class="user-role">OIC - SCIENCE BLOCK & LABORATORIES</span>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+            </header>
+
+            <!-- PAGE CONTENT -->
+            <div class="dashboard-content">
+
+                <!-- PAGE BANNER -->
+                <section class="banner-card">
+                    <div class="blue-accent"></div>
+                    <div class="banner-body">
+                        <h1>Task Assignment & Directives</h1>
+                        
+                    </div>
+                </section>
+
+                <!-- ASSIGNMENT GRID (FORM + JSO AVAILABILITY SUMMARY) -->
+                <section class="task-grid-container">
+
+                    <!-- TASK ASSIGNMENT FORM -->
+                    <div class="form-card flex-2">
+                        <h3><i class="fa-solid fa-plus-circle"></i> Create New Task Assignment</h3>
+                        <form id="assignTaskForm" class="task-form">
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="jsoSelect">Select JSO Officer *</label>
+                                    <select id="jsoSelect" required>
+                                        <option value="" disabled selected>-- Choose Department JSO --</option>
+                                        <option value="JSO-101">K. L. Perera (Available - Main Gate)</option>
+                                        <option value="JSO-104">M. Fernando (Available - UCSC Block)</option>
+                                        <option value="JSO-108">R. Jayasinghe (On Duty - Science Faculty)</option>
+                                        <option value="JSO-112">T. Bandara (Available - Patrol Route B)</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="taskPreset">Select Task Preset or Custom *</label>
+                                    <select id="taskPreset" onchange="handleTaskPreset(this.value)" required>
+                                        <option value="" disabled selected>-- Select Task Preset --</option>
+                                        <option value="Patrol Routine Inspection">Patrol Routine Inspection</option>
+                                        <option value="Main Gate Entrance Monitoring">Main Gate Entrance Monitoring
+                                        </option>
+                                        <option value="VIP Escort Duty">VIP Escort Duty</option>
+                                        <option value="Night Vehicle Access Audit">Night Vehicle Access Audit</option>
+                                        <option value="Incident Site Inspection">Incident Site Inspection</option>
+                                        <option value="custom">-- Custom Task --</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="sectorSelect">Target Sector / Location *</label>
+                                    <select id="sectorSelect" required>
+                                        <option value="Main Gate Complex">Main Gate Complex</option>
+                                        <option value="UCSC Sector & Computer Labs">UCSC Sector & Computer Labs</option>
+                                        <option value="Science Block & Laboratories">Science Block & Laboratories</option>
+                                        <option value="Arts Faculty Complex">Arts Faculty Complex</option>
+                                        <option value="Administration Building">Administration Building</option>
+                                        <option value="Hostel Area & Perimeter">Hostel Area & Perimeter</option>
+                                        <option value="Main Library Complex">Main Library Complex</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="prioritySelect">Priority Level *</label>
+                                    <select id="prioritySelect" required>
+                                        <option value="Normal">Normal</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Urgent">Urgent / High Priority</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="taskTitle">Task Title *</label>
+                                    <input type="text" id="taskTitle"
+                                        placeholder="e.g. Conduct hourly check on UCSC Server Room Gate" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="deadlineTime">Completion Deadline *</label>
+                                    <input type="time" id="deadlineTime" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="taskInstructions">Special Instructions / Directives</label>
+                                <textarea id="taskInstructions" rows="3"
+                                    placeholder="Enter specific instructions or guidelines for the assigned JSO officer..."></textarea>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="reset" class="btn-secondary"><i class="fa-solid fa-rotate-left"></i> Reset
+                                    Form</button>
+                                <button type="submit" class="btn-primary"><i class="fa-solid fa-paper-plane"></i> Assign
+                                    Task</button>
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <!-- JSO AVAILABILITY SUMMARY (SUGGESTION FEATURE) -->
+                    <div class="form-card flex-1">
+                        <h3><i class="fa-solid fa-user-shield"></i> Department JSO Status</h3>
+                        <p class="section-desc">Quick status of officers in your shift sector:</p>
+
+                        <ul class="jso-status-list">
+                            <li class="status-item available">
+                                <div class="jso-avatar-sm">KP</div>
+                                <div class="jso-details">
+                                    <strong>K. L. Perera</strong>
+                                    <span>Status: <em class="badge-status online">Available</em></span>
+                                </div>
+                                <button class="btn-xs" onclick="quickAssign('JSO-101')">Assign</button>
+                            </li>
+
+                            <li class="status-item available">
+                                <div class="jso-avatar-sm">MF</div>
+                                <div class="jso-details">
+                                    <strong>M. Fernando</strong>
+                                    <span>Status: <em class="badge-status online">Available</em></span>
+                                </div>
+                                <button class="btn-xs" onclick="quickAssign('JSO-104')">Assign</button>
+                            </li>
+
+                            <li class="status-item busy">
+                                <div class="jso-avatar-sm">RJ</div>
+                                <div class="jso-details">
+                                    <strong>R. Jayasinghe</strong>
+                                    <span>Status: <em class="badge-status busy">On Duty (1 Task)</em></span>
+                                </div>
+                                <button class="btn-xs disabled" disabled>Busy</button>
+                            </li>
+
+                            <li class="status-item available">
+                                <div class="jso-avatar-sm">TB</div>
+                                <div class="jso-details">
+                                    <strong>T. Bandara</strong>
+                                    <span>Status: <em class="badge-status online">Available</em></span>
+                                </div>
+                                <button class="btn-xs" onclick="quickAssign('JSO-112')">Assign</button>
+                            </li>
+                        </ul>
+                    </div>
+
+                </section>
+
+                <!-- ACTIVE TASKS TABLE -->
+                <section class="table-card">
+                    <div class="table-header">
+                        <h3><i class="fa-solid fa-tasks"></i> Active Task Directives</h3>
+                        <div class="table-filters">
+                            <select id="filterStatus" onchange="filterTasks()">
+                                <option value="all">All Statuses</option>
+                                <option value="Pending">Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table" id="tasksTable">
+                            <thead>
+                                <tr>
+                                    <th>Task ID</th>
+                                    <th>Assigned Officer</th>
+                                    <th>Task Title & Sector</th>
+                                    <th>Priority</th>
+                                    <th>Deadline</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>TSK-0891</strong></td>
+                                    <td>R. Jayasinghe</td>
+                                    <td>
+                                        <strong>Science Block Patrol</strong><br>
+                                        <small class="text-muted">Location: Science Faculty Complex</small>
+                                    </td>
+                                    <td><span class="priority-badge high">Urgent</span></td>
+                                    <td>12:30 PM</td>
+                                    <td><span class="status-pill in-progress"><i
+                                                class="fa-solid fa-spinner fa-spin"></i> In Progress</span></td>
+                                    <td>
+                                        <button class="btn-icon" title="View Details"><i
+                                                class="fa-solid fa-eye"></i></button>
+                                        <button class="btn-icon danger" title="Cancel Task"><i
+                                                class="fa-solid fa-xmark"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>TSK-0890</strong></td>
+                                    <td>K. L. Perera</td>
+                                    <td>
+                                        <strong>Main Gate Visitor Verification</strong><br>
+                                        <small class="text-muted">Location: Main Entrance</small>
+                                    </td>
+                                    <td><span class="priority-badge normal">Normal</span></td>
+                                    <td>02:00 PM</td>
+                                    <td><span class="status-pill pending"><i class="fa-solid fa-clock"></i>
+                                            Pending</span></td>
+                                    <td>
+                                        <button class="btn-icon" title="View Details"><i
+                                                class="fa-solid fa-eye"></i></button>
+                                        <button class="btn-icon danger" title="Cancel Task"><i
+                                                class="fa-solid fa-xmark"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>TSK-0888</strong></td>
+                                    <td>M. Fernando</td>
+                                    <td>
+                                        <strong>UCSC Lab Security Lock-Check</strong><br>
+                                        <small class="text-muted">Location: UCSC Sector</small>
+                                    </td>
+                                    <td><span class="priority-badge medium">Medium</span></td>
+                                    <td>10:00 AM</td>
+                                    <td><span class="status-pill completed"><i class="fa-solid fa-check"></i>
+                                            Completed</span></td>
+                                    <td>
+                                        <button class="btn-icon" title="View Details"><i
+                                                class="fa-solid fa-eye"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- FOOTER -->
+            <footer class="footer">
+                <div><i class="fa-solid fa-shield"></i> UNIGUARD SECURITY MANAGEMENT SYSTEM</div>
+                <div>UNIVERSITY OF COLOMBO, SRI LANKA</div>
+                <div>&copy; All rights reserved</div>
+            </footer>
+
+        </main>
+
+    </div>
+
+    <script src="../../assets/js/common.js"></script>
+    <script src="assignTask.js"></script>
+
+<script>
+(function() {
+  document.addEventListener('DOMContentLoaded', function () {
+    var notifBell = document.getElementById('notifBell');
+    var notifDropdown = document.getElementById('notifDropdown');
+    var notifMarkRead = document.getElementById('notifMarkRead');
+    var notifBadge = document.getElementById('notifBadge');
+
+    if (notifBell && notifDropdown) {
+      notifBell.addEventListener('click', function (e) {
+        e.stopPropagation();
+        notifDropdown.classList.toggle('open');
+      });
+      document.addEventListener('click', function (e) {
+        if (!notifDropdown.contains(e.target) && !notifBell.contains(e.target)) {
+          notifDropdown.classList.remove('open');
+        }
+      });
+    }
+
+    if (notifMarkRead) {
+      notifMarkRead.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelectorAll('#notifDropdown .notif-item.unread').forEach(function (item) {
+          item.classList.remove('unread');
+        });
+        if (notifBadge) notifBadge.style.display = 'none';
+      });
+    }
+  });
+})();
+</script>
+<script>
+
+function updateGreeting() {
+  const elements = document.querySelectorAll(".welcome-hi");
+  if (!elements.length) return;
+  const hour = new Date().getHours();
+  let greetingText = "Good morning";
+  if (hour >= 12 && hour < 17) {
+    greetingText = "Good afternoon";
+  } else if (hour >= 17) {
+    greetingText = "Good evening";
+  }
+  elements.forEach((el) => {
+    const text = el.textContent || "";
+    const hasComma = text.trim().endsWith(",");
+    el.textContent = greetingText + (hasComma ? "," : "");
+  });
+}
+
+(function() { if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", updateGreeting); } else { updateGreeting(); } })();
+</script>
+</body>
+
+</html>
