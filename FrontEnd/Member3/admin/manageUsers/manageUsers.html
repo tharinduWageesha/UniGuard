@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniGuard - Manage Users</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- SheetJS: reads .xlsx / .xls files in the browser for Bulk Import -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../../shared/notif-widget.css">
+
+  <style>
+    /* ==========================================
+       PAGINATION STYLES
+       ========================================== */
+    .table-pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 1.25rem;
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      background: #ffffff;
+      font-size: 0.85rem;
+      color: var(--text-muted, #64748b);
+    }
+
+    .pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 600;
+    }
+
+    .pagination-controls .btn-icon {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #334155;
+      transition: all 0.2s ease;
+    }
+
+    .pagination-controls .btn-icon:hover:not(:disabled) {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .pagination-controls .btn-icon:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* ==========================================
+       BULK IMPORT & DROPZONE STYLES
+       ========================================== */
+    .modal-wide {
+      max-width: 750px;
+      width: 90%;
+    }
+
+    .import-help-text {
+      font-size: 0.875rem;
+      color: #475569;
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+    }
+
+    .csv-format-box {
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #0f172a;
+      margin-bottom: 0.75rem;
+    }
+
+    .upload-dropzone {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      border: 2px dashed #cbd5e1;
+      border-radius: 8px;
+      background: #f8fafc;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    .upload-dropzone:hover, 
+    .upload-dropzone.drag-over {
+      border-color: #0088ff;
+      background: #eff6ff;
+    }
+
+    .upload-dropzone i {
+      font-size: 2.25rem;
+      color: #0088ff;
+      margin-bottom: 0.5rem;
+    }
+
+    .upload-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #1e293b;
+    }
+
+    .upload-subtitle {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-top: 0.25rem;
+    }
+
+    .import-error {
+      background: #fef2f2;
+      border: 1px solid #fca5a5;
+      color: #991b1b;
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+    }
+
+    .bulk-preview-table {
+      max-height: 320px;
+      overflow-y: auto;
+      margin: 1rem 0;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+    }
+
+    .import-result-ok {
+      color: #16a34a;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .import-result-fail {
+      color: #dc2626;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div>
+        <div class="brand-header">
+          <div class="brand-logo">
+            <img src="../../images/logo.png" alt="" class="logopng">
+          </div>
+          <div class="brand-text">
+            <h2>UniGuard Security</h2>
+            <p>System Admin</p>
+          </div>
+        </div>
+
+        <nav class="nav-menu">
+          <span class="menu-label">ADMIN OPERATIONS</span>
+          <a href="../dashboard/index.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> Admin Dashboard</a>
+          <a href="manageUsers.html" class="nav-item active"><i class="fa-solid fa-users-gear"></i> Manage Users</a>
+          <a href="../configureSettings/configureSettings.html" class="nav-item"><i class="fa-solid fa-sliders"></i> Configure Settings</a>
+          <a href="../backupRestore/backupRestore.html" class="nav-item"><i class="fa-solid fa-database"></i> Backup &amp; Restore</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="Auth.logout('/Uniguard/FrontEnd/Member3/admin/loginPage.html')"><i class="fa-solid fa-power-off"></i> LOGOUT</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-wrapper">
+
+      <header class="topbar">
+        <div class="welcome-greet">
+          <div class="welcome-icon"><i class="fa-solid fa-sun"></i></div>
+          <div class="welcome-text">
+            <span class="welcome-hi">Good morning,</span>
+            <span class="welcome-name" id="topbar-welcome-name">Admin</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="time-display">
+            <span id="current-time" class="time-text">--:--:-- PM</span>
+            <span id="current-date" class="date-text">-- ---- ----</span>
+          </div>
+
+          <div class="notification-icon">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge">3</span>
+          </div>
+
+          <div class="user-profile">
+            <div class="avatar-letter" id="topbar-avatar">A</div>
+            <div class="user-info">
+              <span class="user-name" id="topbar-user-name">System Admin</span>
+              <span class="user-role" id="topbar-user-role">ADMIN</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Manage User Accounts</h1>
+          </div>
+          <div class="page-header-actions">
+            <button class="btn-secondary" onclick="openBulkImportModal()">
+              <i class="fa-solid fa-file-import"></i> Bulk Import
+            </button>
+            <button class="btn-primary" onclick="openAddModal()">
+              <i class="fa-solid fa-user-plus"></i> Add New User
+            </button>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">TOTAL ACCOUNTS</span>
+            <div class="stat-value"><span class="stat-num blue" id="total-user-count">0</span> <span class="stat-text">Users</span></div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">ACTIVE ACCOUNTS</span>
+            <div class="stat-value"><span class="stat-num green" id="active-user-count">0</span> <span class="stat-text">Active</span></div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">DEACTIVATED ACCOUNTS</span>
+            <div class="stat-value"><span class="stat-num red" id="deactivated-user-count">0</span> <span class="stat-text">Suspended</span></div>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header">
+            <div>
+              <h3>RECENT USER ENTRIES DIRECTORY</h3>
+              <p style="font-size: 0.78rem; color: #64748b; margin-top: 2px;" id="directory-subtitle">Showing recent 25 accounts. Use the search bar to find any user account in the system.</p>
+            </div>
+            <div class="table-search">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="user-search-input" onkeyup="filterByUsername()" placeholder="Search any user by username (email)...">
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="custom-table" id="user-table">
+              <thead>
+                <tr>
+                  <th>User Details</th>
+                  <th>Username / Email</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th class="text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="user-table-body">
+                <!-- Dynamically populated by JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- PAGINATION CONTROLS -->
+          <div class="table-pagination">
+            <div class="pagination-info">
+              Showing <span id="page-start">0</span> to <span id="page-end">0</span> of <span id="total-records">0</span> users
+            </div>
+            <div class="pagination-controls">
+              <button class="btn-icon" id="prev-page-btn" onclick="changePage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+              <span id="page-number-display">Page 1 of 1</span>
+              <button class="btn-icon" id="next-page-btn" onclick="changePage(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <footer class="footer">
+        <div><i class="fa-solid fa-shield"></i> UNIGUARD SECURITY MANAGEMENT SYSTEM</div>
+        <div>UNIVERSITY OF COLOMBO, SRI LANKA</div>
+        <div>&copy; All rights reserved</div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <!-- ADD / EDIT USER MODAL -->
+  <div class="modal-overlay" id="userModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="modalTitle">Add New User</h3>
+        <button class="close-btn" onclick="closeModal('userModal')">&times;</button>
+      </div>
+      <form id="userForm" onsubmit="handleFormSubmit(event)">
+        <input type="hidden" id="user-id">
+        <input type="hidden" id="user-uid">
+        <input type="hidden" id="user-original-role">
+
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="user-name" placeholder="e.g., W.A.A.L Weerasooriya" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Username / Email</label>
+            <input type="email" id="user-email" placeholder="user@uniguard.lk" required>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="user-password" placeholder="Account Password" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Assign Role</label>
+            <select id="user-role" required>
+              <option value="">-- Select Role --</option>
+              <option value="Student">Student</option>
+              <option value="University Management">University Management</option>
+              <option value="Staff">Staff</option>
+              <option value="CSO">CSO (Chief Security Officer)</option>
+              <option value="JSO">JSO (Junior Security Officer)</option>
+              <option value="OIC">OIC (Officer in Charge)</option>
+              <option value="Support Account">Support Account</option>
+              <option value="Visitor">Visitor</option>
+              <option value="Admin">System Admin</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Account Status</label>
+            <select id="user-status" required>
+              <option value="Active">Active</option>
+              <option value="Deactivated">Deactivated</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('userModal')">Cancel</button>
+          <button type="submit" class="btn-primary" id="saveBtn">Save Account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- BULK IMPORT MODAL -->
+  <div class="modal-overlay" id="bulkImportModal">
+    <div class="modal-container modal-wide">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-file-import"></i> Bulk Import Users</h3>
+        <button class="close-btn" onclick="closeModal('bulkImportModal')">&times;</button>
+      </div>
+
+      <div id="bulkImportStep1">
+        <p class="import-help-text">
+          Upload a CSV or Excel (.xlsx / .xls) file exported from the University Admin system to add many accounts at once.
+          The file must have a header row with these columns:
+        </p>
+        <div class="csv-format-box">name, email, phone, idNumber, role, status</div>
+        <div style="margin-bottom: 0.75rem;">
+          <button type="button" class="btn-secondary" style="font-size: 0.8rem; padding: 0.4rem 0.75rem; cursor: pointer;" onclick="downloadBulkImportSample()">
+            <i class="fa-solid fa-file-csv"></i> Download Sample CSV Template
+          </button>
+        </div>
+        <p class="import-help-text">
+          <strong>idNumber</strong> = Student ID or Staff ID (e.g., 2021/CS/045 or STF-2044).<br>
+          Accepted <strong>role</strong> values: Student, Staff, Security Officer, Chief Security Officer, CSO, JSO, OIC, University Management, Visitor, Admin.<br>
+          Accepted <strong>status</strong> values: Active, Deactivated (defaults to Active if left blank).
+        </p>
+
+        <label class="upload-dropzone" id="dropzone" for="csvFileInput">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <span class="upload-title">Click to choose a CSV or Excel file, or drag it here</span>
+          <span class="upload-subtitle" id="dropzoneFileName">No file selected</span>
+        </label>
+        <input type="file" id="csvFileInput" accept=".csv,text/csv,.xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" hidden onchange="handleCsvFileSelect(event)">
+
+        <div id="bulkImportError" class="import-error" style="display:none;"></div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('bulkImportModal')">Cancel</button>
+          <button type="button" class="btn-primary" id="previewImportBtn" onclick="previewBulkImport()" disabled>
+            <i class="fa-solid fa-eye"></i> Preview Import
+          </button>
+        </div>
+      </div>
+
+      <div id="bulkImportStep2" style="display:none;">
+        <p class="import-help-text">
+          <span id="bulkImportSummaryText"></span>
+        </p>
+        <div class="table-responsive bulk-preview-table">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>ID Number</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody id="bulkImportPreviewBody"></tbody>
+          </table>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="backToBulkImportUpload()">
+            <i class="fa-solid fa-arrow-left"></i> Back
+          </button>
+          <button type="button" class="btn-primary" id="confirmImportBtn" onclick="confirmBulkImport()">
+            <i class="fa-solid fa-check"></i> Import Valid Rows
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../auth.js"></script>
+  <script src="manageUsers.js"></script>
+  <script src="../../shared/notif-widget.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  Auth.requireAuth('Admin', '../loginPage.html');
+});
+
+function updateGreeting() {
+  const elements = document.querySelectorAll(".welcome-hi");
+  if (!elements.length) return;
+  const hour = new Date().getHours();
+  let greetingText = "Good morning";
+  if (hour >= 12 && hour < 17) {
+    greetingText = "Good afternoon";
+  } else if (hour >= 17) {
+    greetingText = "Good evening";
+  }
+  elements.forEach((el) => {
+    const text = el.textContent || "";
+    const hasComma = text.trim().endsWith(",");
+    el.textContent = greetingText + (hasComma ? "," : "");
+  });
+}
+
+(function() { if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", updateGreeting); } else { updateGreeting(); } })();
+</script>
+</body>
+</html>

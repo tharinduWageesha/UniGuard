@@ -1,0 +1,794 @@
+/* ==========================================
+   1. CSS VARIABLES & GLOBAL RESETS
+   ========================================== */
+:root {
+  --bg-main: #f3f6fa;
+  --bg-sidebar: #ffffff;
+  --bg-card: #ffffff;
+  --primary-blue: #0088ff;
+  --primary-blue-hover: #0066cc;
+  --primary-light-blue: #eaf4ff;
+  --text-dark: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --accent-red: #ef4444;
+  --accent-red-hover: #fee2e2;
+  --accent-orange: #f59e0b;
+  --accent-green: #10b981;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-dark);
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ==========================================
+   2. MAIN LAYOUT & FIXED SIDEBAR
+   ========================================== */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem 1rem;
+  overflow-y: auto;
+  z-index: 100;
+  box-sizing: border-box;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.main-wrapper {
+  margin-left: 260px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* ==========================================
+   3. SIDEBAR BRAND & NAVIGATION
+   ========================================== */
+.brand-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.brand-logo,
+.logopng {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+}
+
+.brand-text h2 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.brand-text p {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  letter-spacing: 0.5px;
+}
+
+.menu-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #94a3b8;
+  margin-bottom: 0.715rem;
+  display: block;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.75rem 1rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  background: #f8fafc;
+  color: var(--primary-blue);
+}
+
+.nav-item.active {
+  background: var(--primary-light-blue);
+  color: var(--primary-blue);
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.sidebar-footer .btn-logout {
+  width: 100%;
+  padding: 0.75rem;
+  background: #eaf2ff;
+  border: none;
+  color: #2563eb;
+  font-weight: 700;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background 0.2s ease;
+}
+
+.sidebar-footer .btn-logout:hover {
+  background: #d6e7ff;
+}
+
+.main-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--bg-main);
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: #e2e8f0;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    width: 320px;
+    gap: 0.5rem;
+}
+
+.search-bar input {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    font-size: 0.85rem;
+}
+
+.search-bar i {
+    color: #94a3b8;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.time-display {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.time-text {
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.date-text {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.notification-icon {
+    position: relative;
+    background: #e2e8f0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.notification-icon .badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: #ef4444;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-profile .avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.user-role {
+    font-size: 0.6rem;
+    font-weight: 800;
+    background: #0f172a;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.dashboard-content {
+    padding: 1rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    flex: 1;
+}
+
+.banner-card {
+    background: var(--bg-card);
+    border-radius: 8px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.blue-accent {
+    width: 6px;
+    background: var(--primary-blue);
+}
+
+.banner-body {
+    padding: 1.25rem;
+}
+
+.banner-body h1 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 0.25rem;
+}
+
+.banner-body p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.stat-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #94a3b8;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.stat-num {
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+
+.stat-num.blue {
+    color: var(--primary-blue);
+}
+
+.stat-num.red {
+    color: var(--accent-red);
+}
+
+.stat-num.orange {
+    color: var(--accent-orange);
+}
+
+.stat-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.charts-grid {
+    display: flex;
+    gap: 1rem;
+}
+
+.flex-2 {
+    flex: 2;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.chart-card {
+    background: var(--bg-card);
+    padding: 1.25rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-card h3 {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+}
+
+.chart-container {
+    position: relative;
+    height: 230px;
+    width: 100%;
+}
+
+.donut-container {
+    height: 180px;
+}
+
+.chart-footer-note {
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #94a3b8;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-main);
+}
+
+/* ===== Notification Dropdown (added) ===== */
+.notification-wrapper { position: relative; }
+.notification-dropdown {
+  display: none;
+  position: absolute;
+  top: 48px;
+  right: 0;
+  width: 340px;
+  max-width: 88vw;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18);
+  border: 1px solid #e2e8f0;
+  z-index: 1000;
+  overflow: hidden;
+}
+.notification-dropdown.open { display: block; }
+.notif-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid #e2e8f0;
+}
+.notif-header h4 { font-size: 0.95rem; font-weight: 700; color: #1e293b; margin: 0; }
+.notif-header a { font-size: 0.78rem; font-weight: 600; color: #2563eb; text-decoration: none; cursor: pointer; }
+.notif-header a:hover { text-decoration: underline; }
+.notif-list { max-height: 320px; overflow-y: auto; }
+.notif-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.notif-item:last-child { border-bottom: none; }
+.notif-item:hover { background: #f8fafc; }
+.notif-item.unread { background: #eff6ff; }
+.notif-item.unread:hover { background: #e0edff; }
+.notif-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; flex-shrink: 0;
+}
+.notif-icon.danger { background: #fee2e2; color: #ef4444; }
+.notif-icon.warning { background: #fef3c7; color: #f59e0b; }
+.notif-icon.info { background: #dbeafe; color: #2563eb; }
+.notif-body { flex: 1; min-width: 0; }
+.notif-title { font-size: 0.85rem; font-weight: 700; color: #1e293b; margin: 0 0 2px; }
+.notif-desc { font-size: 0.78rem; color: #64748b; margin: 0 0 4px; line-height: 1.4; }
+.notif-time { font-size: 0.7rem; color: #94a3b8; font-weight: 600; }
+.notif-footer {
+  display: block; text-align: center; padding: 12px;
+  font-size: 0.8rem; font-weight: 700; color: #2563eb;
+  text-decoration: none; border-top: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+.notif-footer:hover { background: #eef2ff; }
+
+.user-profile-link { text-decoration: none; color: inherit; display: block; }
+
+/* =======================================================
+   UI REFRESH — header search removed, profile pattern
+   changed to a bordered dropdown-style pill, sidebar nav
+   updated with rounded active state + icon chips.
+   (No color values changed — reuses existing variables)
+   ======================================================= */
+.topbar .search-bar,
+.search-bar{ display:none !important; }
+
+.user-profile-link{
+  display:inline-flex;
+  align-items:center;
+  text-decoration:none;
+  gap:6px;
+}
+.user-profile-link::after{
+  content:"\25BE";
+  font-size:11px;
+  color:var(--text-faint);
+  margin-left:2px;
+}
+.user-profile{
+  display:flex;
+  flex-direction:row-reverse;
+  align-items:center;
+  gap:10px;
+  padding:6px 14px 6px 6px;
+  border:1px solid var(--border-color);
+  border-radius:999px;
+  background:var(--bg-main);
+  transition:background .15s ease, border-color .15s ease;
+}
+.user-profile-link:hover .user-profile{
+  border-color:var(--primary-blue);
+  background:var(--primary-light-blue);
+}
+.user-profile .avatar{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  border:2px solid var(--primary-blue);
+}
+.user-profile .user-info{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:3px;
+}
+.user-profile .user-name{
+  font-size:13px;
+}
+.user-profile .user-role{
+  font-size:9px;
+  letter-spacing:.4px;
+  padding:2px 8px;
+  border-radius:999px;
+  background:var(--primary-light-blue);
+  color:var(--primary-blue);
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+}
+.user-profile .user-role::before{
+  content:"";
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:var(--primary-blue);
+}
+
+/* Sidebar nav pattern refresh */
+.nav-menu{
+  padding:6px 8px;
+}
+.nav-menu .nav-item{
+  margin:4px 4px;
+  padding:10px 12px;
+  border-radius:10px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.nav-menu .nav-item i{
+  width:26px;
+  height:26px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  background:var(--bg-main);
+  font-size:13px;
+  flex-shrink:0;
+}
+.nav-menu .nav-item:hover{
+  background:var(--primary-light-blue);
+}
+.nav-menu .nav-item:hover i{
+  background:#ffffff;
+}
+.nav-menu .nav-item.active{
+  background:var(--primary-light-blue);
+  color:var(--primary-blue);
+  font-weight:600;
+  border-left:3px solid var(--primary-blue);
+  padding-left:9px;
+}
+.nav-menu .nav-item.active i{
+  background:#ffffff;
+  color:var(--primary-blue);
+}
+.menu-label{
+  display:block;
+  margin:14px 12px 6px;
+  padding-top:10px;
+  border-top:1px solid var(--border-color);
+  font-size:10px;
+  letter-spacing:1px;
+}
+.menu-label:first-of-type{
+  border-top:none;
+  margin-top:6px;
+}
+
+/* ===== Corner fix: move time/notif/profile cluster to the opposite (right) corner ===== */
+.topbar{
+  justify-content:flex-end !important;
+}
+
+
+/* ======================================================
+   UI REFRESH ROUND 2 — fix right-side alignment after
+   removing the search bar, and repurpose that space with
+   a duty-status indicator instead of leaving it empty.
+   ====================================================== */
+.topbar-right{
+  margin-left:auto;
+}
+.duty-status{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 16px;
+  border:1px solid var(--border-color);
+  border-radius:999px;
+  background:var(--bg-main);
+}
+.duty-dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--accent-green);
+  flex-shrink:0;
+}
+.duty-text{
+  display:flex;
+  flex-direction:column;
+  line-height:1.25;
+}
+.duty-label{
+  font-size:12px;
+  font-weight:700;
+  color:var(--text-dark);
+}
+.duty-sub{
+  font-size:10px;
+  color:var(--text-muted);
+}
+
+
+/* ======================================================
+   UI REFRESH ROUND 3 — swap duty-status for a personalized
+   welcome greeting (name pulled from that page's own profile).
+   ====================================================== */
+.welcome-greet{
+  display:flex;
+  flex-direction:column;
+  line-height:1.25;
+  padding-left:4px;
+}
+.welcome-hi{
+  font-size:11px;
+  color:var(--text-muted);
+  letter-spacing:.2px;
+}
+.welcome-name{
+  font-size:15px;
+  font-weight:700;
+  color:var(--text-dark);
+}
+
+
+/* ======================================================
+   UI REFRESH ROUND 4 — restyle the welcome greeting with
+   an icon chip + accent-colored name instead of plain text.
+   ====================================================== */
+.welcome-greet{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:12px;
+  padding-left:0;
+}
+.welcome-icon{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:var(--primary-light-blue);
+  color:var(--primary-blue);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:15px;
+  flex-shrink:0;
+}
+.welcome-text{
+  display:flex;
+  flex-direction:column;
+  line-height:1.2;
+}
+.welcome-hi{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  font-weight:700;
+  color:var(--text-muted);
+}
+.welcome-name{
+  font-size:17px;
+  font-weight:800;
+  color:var(--primary-blue);
+}
+
+
+/* ----------------------------------------------------------
+   OFFICER ACTIVE STATUS PICKER (CSO / OIC / JSO)
+   ---------------------------------------------------------- */
+.welcome-greet {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+  flex-wrap: wrap !important;
+}
+
+.officer-status-picker {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 20px !important;
+  padding: 3px 10px !important;
+  margin-left: 6px !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+}
+
+.officer-status-picker:hover {
+  border-color: #0088ff !important;
+  box-shadow: 0 2px 5px rgba(0, 136, 255, 0.15) !important;
+}
+
+.status-indicator-dot {
+  width: 9px !important;
+  height: 9px !important;
+  border-radius: 50% !important;
+  display: inline-block !important;
+  flex-shrink: 0 !important;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.status-indicator-dot.active {
+  background-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25) !important;
+}
+
+.status-indicator-dot.leave {
+  background-color: #f59e0b !important;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25) !important;
+}
+
+.status-select {
+  border: none !important;
+  background: transparent !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  color: #1e293b !important;
+  cursor: pointer !important;
+  outline: none !important;
+  font-family: inherit !important;
+  padding-right: 2px !important;
+}
+
+.status-select option {
+  font-weight: 600 !important;
+  color: #1e293b !important;
+  background: #ffffff !important;
+}

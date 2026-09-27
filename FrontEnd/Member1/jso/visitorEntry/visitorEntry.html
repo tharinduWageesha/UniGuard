@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniGuard - JSO Visitor Entry</title>
+
+  <link rel="stylesheet" href="../../assets/css/common.css">
+  <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+  <div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand-header">
+        <div class="brand-logo">
+          <img src="../../images/logo.png" alt="UniGuard Logo" class="logopng">
+        </div>
+        <div class="brand-text">
+          <h2>UniGuard Security</h2>
+          <p>Junior Security Officer</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <span class="menu-label">JSO OPERATIONS</span>
+        <a href="../dashboard/index.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> JSO Dashboard</a>
+        <a href="../myTasks/myTasks.html" class="nav-item"><i class="fa-solid fa-tasks"></i> My Tasks</a>
+        <a href="../scanBarcode/scanner.html" class="nav-item"><i class="fa-solid fa-barcode"></i> Scan Barcode</a>
+        <a href="visitorEntry.html" class="nav-item active"><i class="fa-solid fa-id-card"></i> Visitor Entry</a>
+        <a href="../nightVehicle/nightVehicle.html" class="nav-item"><i class="fa-solid fa-car-side"></i> Night Vehicle
+          Entry</a>
+        <a href="../vehicleRecords/vehicleRecords.html" class="nav-item"><i class="fa-solid fa-clipboard-list"></i>
+          Vehicle Records</a>
+        <a href="../lostFound/lostFound.html" class="nav-item"><i class="fa-solid fa-box"></i> Lost &amp; Found</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="btn-logout" data-href="../loginPage.html"><i class="fa-solid fa-power-off"></i> LOGOUT</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-wrapper">
+
+      <!-- TOPBAR HEADER -->
+      <header class="topbar">
+        <div class="welcome-greet">
+          <div class="welcome-icon"><i class="fa-solid fa-sun"></i></div>
+          <div class="welcome-text">
+            <span class="welcome-hi">Good morning,</span>
+            <span class="welcome-name">L.</span>
+          </div>
+          <div class="officer-status-picker" data-status-picker>
+            <span class="status-indicator-dot active" data-status-dot></span>
+            <select class="status-select" data-status-select title="Change your active status">
+              <option value="On Active">On Active</option>
+              <option value="On Leave">On Leave</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="time-display">
+            <span id="current-time" class="time-text">--:--:-- PM</span>
+            <span id="current-date" class="date-text">-- ---- ----</span>
+          </div>
+
+          <div class="notification-wrapper">
+            <div class="notification-icon" id="notifBell">
+              <i class="fa-regular fa-bell"></i>
+              <span class="badge" id="notifBadge">3</span>
+            </div>
+            <div class="notification-dropdown" id="notifDropdown">
+              <div class="notif-header">
+                <h4>Notifications</h4>
+                <a href="#" id="notifMarkRead">Mark all as read</a>
+              </div>
+              <div class="notif-list">
+                <div class="notif-item unread">
+                  <div class="notif-icon danger"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                  <div class="notif-body">
+                    <p class="notif-title">Critical Incident Alert</p>
+                    <p class="notif-desc">Unauthorized breach reported at Gate 02. OIC assigned.</p>
+                    <span class="notif-time">10 mins ago</span>
+                  </div>
+                </div>
+                <div class="notif-item unread">
+                  <div class="notif-icon warning"><i class="fa-solid fa-id-card"></i></div>
+                  <div class="notif-body">
+                    <p class="notif-title">VIP Visitor Request</p>
+                    <p class="notif-desc">Pending clearance approval for Ministry Delegation.</p>
+                    <span class="notif-time">45 mins ago</span>
+                  </div>
+                </div>
+                <div class="notif-item">
+                  <div class="notif-icon info"><i class="fa-solid fa-file-lines"></i></div>
+                  <div class="notif-body">
+                    <p class="notif-title">Daily Operations Report</p>
+                    <p class="notif-desc">Jayasinghe submitted shift summary report.</p>
+                    <span class="notif-time">2 hours ago</span>
+                  </div>
+                </div>
+              </div>
+              <a href="#" class="notif-footer">View All Activity Logs</a>
+            </div>
+          </div>
+
+          <a href="../myprofile.html" class="user-profile-link">
+            <div class="user-profile">
+              <div class="avatar-initial">KP</div>
+              <div class="user-info">
+                <span class="user-name">K. L. Perera</span>
+                <span class="user-role">JUNIOR SECURITY OFFICER</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Visitor Entry & Exit Management</h1>
+          </div>
+        </div>
+
+        <section class="charts-grid">
+          <!-- VISITOR LOOKUP / DIRECT PASS INPUT -->
+          <div class="chart-card flex-1">
+            <h3><i class="fa-solid fa-id-card"></i> FIND VISITOR PASS</h3>
+            <p class="section-desc">Enter a Visitor Pass ID or National Identity Card (NIC) number to load visitor
+              details.</p>
+
+            <div class="barcode-wrapper" id="lookupZone">
+              <div class="form-group text-left" style="width:100%">
+                <label for="visitorInput">Visitor Pass ID / NIC Number</label>
+                <input type="text" class="form-control" id="visitorInput" placeholder="e.g. VIS-482913 or 198812345V">
+              </div>
+              <button class="btn-primary" id="loadVisitorBtn"><i class="fa-solid fa-user-check"></i> Load Visitor
+                Details</button>
+            </div>
+          </div>
+
+          <!-- VISITOR DETAILS PANEL -->
+          <div class="chart-card flex-1">
+            <h3><i class="fa-solid fa-address-card"></i> VISITOR DETAILS</h3>
+            <div id="resultEmpty" class="section-desc">No visitor pass loaded yet. Details will appear here.</div>
+
+            <div id="resultPanel" style="display:none">
+              <div class="scan-result-card">
+                <div class="avatar-initial avatar-lg" id="resultAvatar">--</div>
+                <dl>
+                  <dt>Visitor Name</dt>
+                  <dd id="resultName">--</dd>
+                  <dt>Pass ID / NIC</dt>
+                  <dd id="resultId">--</dd>
+                  <dt>Department</dt>
+                  <dd id="resultDept">--</dd>
+                </dl>
+              </div>
+              <div class="form-actions">
+                <button class="btn-secondary" id="recordExitBtn"><i class="fa-solid fa-arrow-right-from-bracket"></i>
+                  Record Exit</button>
+                <button class="btn-primary" id="recordEntryBtn"><i class="fa-solid fa-right-to-bracket"></i> Record
+                  Entry</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VISITOR GATE LOG -->
+        <section class="table-card">
+          <div class="table-header">
+            <h3><i class="fa-solid fa-clock-rotate-left"></i> Today's Visitor Log</h3>
+          </div>
+          <table class="data-table" id="logTable">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Visitor Pass ID</th>
+                <th>Visitor Name</th>
+                <th>Department / Purpose</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="logTableBody"></tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div><i class="fa-solid fa-shield"></i> UNIGUARD SECURITY MANAGEMENT SYSTEM</div>
+        <div>UNIVERSITY OF COLOMBO, SRI LANKA</div>
+        <div>&copy; All rights reserved</div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <script src="../../assets/js/common.js"></script>
+  <script src="visitorEntry.js"></script>
+
+<script>
+(function() {
+  document.addEventListener('DOMContentLoaded', function () {
+    var notifBell = document.getElementById('notifBell');
+    var notifDropdown = document.getElementById('notifDropdown');
+    var notifMarkRead = document.getElementById('notifMarkRead');
+    var notifBadge = document.getElementById('notifBadge');
+
+    if (notifBell && notifDropdown) {
+      notifBell.addEventListener('click', function (e) {
+        e.stopPropagation();
+        notifDropdown.classList.toggle('open');
+      });
+      document.addEventListener('click', function (e) {
+        if (!notifDropdown.contains(e.target) && !notifBell.contains(e.target)) {
+          notifDropdown.classList.remove('open');
+        }
+      });
+    }
+
+    if (notifMarkRead) {
+      notifMarkRead.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelectorAll('#notifDropdown .notif-item.unread').forEach(function (item) {
+          item.classList.remove('unread');
+        });
+        if (notifBadge) notifBadge.style.display = 'none';
+      });
+    }
+  });
+})();
+</script>
+<script>
+
+function updateGreeting() {
+  const elements = document.querySelectorAll(".welcome-hi");
+  if (!elements.length) return;
+  const hour = new Date().getHours();
+  let greetingText = "Good morning";
+  if (hour >= 12 && hour < 17) {
+    greetingText = "Good afternoon";
+  } else if (hour >= 17) {
+    greetingText = "Good evening";
+  }
+  elements.forEach((el) => {
+    const text = el.textContent || "";
+    const hasComma = text.trim().endsWith(",");
+    el.textContent = greetingText + (hasComma ? "," : "");
+  });
+}
+
+(function() { if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", updateGreeting); } else { updateGreeting(); } })();
+</script>
+</body>
+
+</html>

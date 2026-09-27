@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniGuard - Staff Dashboard</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../../shared/notif-widget.css">
+</head>
+<body>
+  <div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div>
+        <div class="brand-header">
+          <div class="brand-logo">
+            <img src="../../images/logo.png" alt="" class="logopng">
+          </div>
+          <div class="brand-text">
+            <h2>UniGuard Security</h2>
+            <p>Staff Portal</p>
+          </div>
+        </div>
+
+        <nav class="nav-menu">
+          <span class="menu-label">STAFF SERVICES</span>
+          <a href="index.html" class="nav-item active"><i class="fa-solid fa-house"></i> Dashboard</a>
+          <a href="../lostFound/lostFound.html" class="nav-item"><i class="fa-solid fa-box-archive"></i> Lost &amp; Found</a>
+          <a href="../vehiclePass/vehiclePass.html" class="nav-item"><i class="fa-solid fa-car"></i> Vehicle Pass</a>
+          <a href="../reportIncident/reportIncident.html" class="nav-item"><i class="fa-solid fa-phone-volume"></i> Emergency Contact</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="window.location.href='../loginPage.html'"><i class="fa-solid fa-power-off"></i> LOGOUT</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-wrapper">
+
+      <header class="topbar">
+        <div class="welcome-greet">
+          <div class="welcome-icon"><i class="fa-solid fa-sun"></i></div>
+          <div class="welcome-text">
+            <span class="welcome-hi">Good morning,</span>
+            <span class="welcome-name">A.M.D</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="time-display">
+            <span id="current-time" class="time-text">--:--:-- PM</span>
+            <span id="current-date" class="date-text">-- ---- ----</span>
+          </div>
+
+          <div class="notification-icon">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge">1</span>
+          </div>
+
+          <a href="../myprofile.html" class="user-profile-link">
+          <div class="user-profile">
+            <img src="https://i.pravatar.cc/100?img=45" alt="Profile Avatar" class="avatar">
+            <div class="user-info">
+              <span class="user-name">A.M.D Amna</span>
+              <span class="user-role">STAFF</span>
+            </div>
+          </div>
+          </a>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+
+        <!-- HERO / BANNER -->
+        <section class="banner-card">
+          <div class="blue-accent"></div>
+          <div class="banner-body">
+            <h1>Welcome back, Amna!</h1>
+          </div>
+        </section>
+
+        <!-- STATS CARDS -->
+        <section class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">ACTIVE VEHICLE PASS</span>
+            <div class="stat-value"><span class="stat-num green" id="pass-status">1</span> <span class="stat-text">Valid</span></div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">LOST &amp; FOUND REPORTS</span>
+            <div class="stat-value"><span class="stat-num blue" id="reports-count">1</span> <span class="stat-text">Submitted</span></div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">NOTIFICATIONS</span>
+            <div class="stat-value"><span class="stat-num orange" id="notif-count">1</span> <span class="stat-text">Unread</span></div>
+          </div>
+        </section>
+
+        <!-- ID / BARCODE + QUICK ACTIONS -->
+        <section class="profile-grid">
+          <div class="id-card">
+            <div class="id-card-top">
+              <h4>UniGuard Digital ID</h4>
+              <img src="https://i.pravatar.cc/100?img=45" class="id-card-photo" alt="">
+            </div>
+            <div>
+              <div class="id-card-name">A.M.D Amna</div>
+              <div class="id-card-sub">Administration Department</div>
+            </div>
+            <div class="id-card-meta">
+              <div><span>Staff ID</span>ST-2095</div>
+              <div><span>Position</span>Lecturer</div>
+              <div><span>Status</span>Active</div>
+            </div>
+            <div class="barcode-strip" id="barcode-strip"></div>
+            <div class="barcode-id-text">ST-2095</div>
+          </div>
+
+          <div class="quick-actions-container">
+            <a href="../lostFound/lostFound.html" class="quick-action-card">
+              <div class="quick-action-icon"><i class="fa-solid fa-box-open"></i></div>
+              <h4>Report Lost / Found Item</h4>
+              <p>Submit a report for a misplaced or discovered item on campus.</p>
+            </a>
+            <a href="../vehiclePass/vehiclePass.html" class="quick-action-card">
+              <div class="quick-action-icon"><i class="fa-solid fa-car-side"></i></div>
+              <h4>Request Vehicle Pass</h4>
+              <p>Request a standard or night vehicle entry pass.</p>
+            </a>
+            <a href="../reportIncident/reportIncident.html" class="quick-action-card">
+              <div class="quick-action-icon"><i class="fa-solid fa-phone-volume"></i></div>
+              <h4>Emergency Contact</h4>
+              <p>Quickly reach campus security in case of an incident.</p>
+            </a>
+          </div>
+        </section>
+
+      </div>
+
+      <footer class="footer">
+        <div><i class="fa-solid fa-shield"></i> UNIGUARD SECURITY MANAGEMENT SYSTEM</div>
+        <div>UNIVERSITY OF COLOMBO, SRI LANKA</div>
+        <div>&copy; All rights reserved</div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <script src="staff-dashboard.js"></script>
+  <script src="../../shared/notif-widget.js"></script>
+<script>
+
+function updateGreeting() {
+  const elements = document.querySelectorAll(".welcome-hi");
+  if (!elements.length) return;
+  const hour = new Date().getHours();
+  let greetingText = "Good morning";
+  if (hour >= 12 && hour < 17) {
+    greetingText = "Good afternoon";
+  } else if (hour >= 17) {
+    greetingText = "Good evening";
+  }
+  elements.forEach((el) => {
+    const text = el.textContent || "";
+    const hasComma = text.trim().endsWith(",");
+    el.textContent = greetingText + (hasComma ? "," : "");
+  });
+}
+
+(function() { if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", updateGreeting); } else { updateGreeting(); } })();
+</script>
+  <!-- FIXED NEED SUPPORT BUTTON (BOTTOM RIGHT CORNER) -->
+  <a href="/Uniguard/FrontEnd/support.html" class="need-support-btn" title="UniGuard Support Center">
+    <i class="fa-solid fa-headset"></i>
+    <span>Need Support?</span>
+  </a>
+
+  <style>
+    .need-support-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 99999;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #0088ff, #0f172a);
+      color: #ffffff !important;
+      padding: 12px 20px;
+      border-radius: 30px;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-decoration: none !important;
+      box-shadow: 0 8px 24px rgba(0, 136, 255, 0.35);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .need-support-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 28px rgba(0, 136, 255, 0.5);
+      background: linear-gradient(135deg, #0077ee, #1e293b);
+      color: #ffffff !important;
+    }
+
+    .need-support-btn i {
+      font-size: 1.1rem;
+      color: #38bdf8;
+      animation: supportPulse 2s infinite ease-in-out;
+    }
+
+    @keyframes supportPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    @media (max-width: 640px) {
+      .need-support-btn {
+        bottom: 16px;
+        right: 16px;
+        padding: 10px 16px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</body>
+</html>

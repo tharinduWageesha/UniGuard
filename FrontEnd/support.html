@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniGuard - Support Center & Help Hub</title>
+
+  <!-- Google Fonts & FontAwesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #0088ff;
+      --primary-dark: #0066cc;
+      --bg-dark: #0f172a;
+      --surface: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --danger: #ef4444;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: #f8fafc;
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOP HEADER BAR */
+    .support-nav {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: white;
+    }
+
+    .brand-logo i {
+      font-size: 1.8rem;
+      color: #38bdf8;
+    }
+
+    .brand-logo div h1 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-logo div p {
+      font-size: 0.725rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .btn-back {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-back:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(-2px);
+    }
+
+    /* HERO SECTION */
+    .support-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white;
+      padding: 4rem 2rem 5rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .support-hero h2 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .support-hero p {
+      font-size: 1.05rem;
+      color: #94a3b8;
+      max-width: 650px;
+      margin: 0 auto 2rem auto;
+    }
+
+    /* SEARCH BAR */
+    .search-box {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 1rem 1.5rem 1rem 3.25rem;
+      border-radius: 30px;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .search-box input::placeholder {
+      color: #94a3b8;
+    }
+
+    .search-box input:focus {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--primary);
+      box-shadow: 0 10px 30px rgba(0, 136, 255, 0.3);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #38bdf8;
+      font-size: 1.2rem;
+    }
+
+    /* MAIN CONTAINER */
+    .support-container {
+      max-width: 1200px;
+      margin: -2.5rem auto 4rem auto;
+      padding: 0 1.5rem;
+      width: 100%;
+      flex: 1;
+    }
+
+    /* EMERGENCY BANNER CARD */
+    .emergency-card {
+      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+      color: white;
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      box-shadow: 0 10px 30px rgba(239, 68, 68, 0.25);
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .emergency-info {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .emergency-icon {
+      width: 54px;
+      height: 54px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .emergency-text h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .emergency-text p {
+      font-size: 0.875rem;
+      opacity: 0.9;
+    }
+
+    .emergency-btn {
+      background: #ffffff;
+      color: #b91c1c;
+      padding: 10px 22px;
+      border-radius: 25px;
+      font-weight: 800;
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: all 0.2s ease;
+    }
+
+    .emergency-btn:hover {
+      background: #fef2f2;
+      transform: scale(1.03);
+    }
+
+    /* CATEGORIES GRID */
+    .grid-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .cat-card {
+      background: var(--surface);
+      border-radius: 14px;
+      padding: 1.75rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .cat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 136, 255, 0.12);
+      border-color: #93c5fd;
+    }
+
+    .cat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .cat-icon.blue { background: #e0f2fe; color: #0284c7; }
+    .cat-icon.green { background: #dcfce7; color: #16a34a; }
+    .cat-icon.purple { background: #f3e8ff; color: #9333ea; }
+    .cat-icon.orange { background: #ffedd5; color: #ea580c; }
+    .cat-icon.red { background: #fee2e2; color: #dc2626; }
+    .cat-icon.slate { background: #f1f5f9; color: #475569; }
+
+    .cat-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .cat-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+      flex: 1;
+    }
+
+    .cat-link {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cat-link:hover {
+      text-decoration: underline;
+    }
+
+    /* SECTION LAYOUT FOR FAQ & FORM */
+    .two-col-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .two-col-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card-panel {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .card-panel h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* FAQ ACCORDION */
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-question {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-question i {
+      color: var(--primary);
+      transition: transform 0.2s;
+    }
+
+    .faq-answer {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      display: none;
+      line-height: 1.5;
+    }
+
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    /* TICKET FORM */
+    .form-group {
+      margin-bottom: 1.1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.825rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      background: #f8fafc;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(0, 136, 255, 0.1);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      border: none;
+      padding: 0.85rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0, 136, 255, 0.3);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 136, 255, 0.4);
+    }
+
+    /* FOOTER */
+    .support-footer {
+      background: #0f172a;
+      color: #94a3b8;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      margin-top: auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP NAV BAR -->
+  <nav class="support-nav">
+    <a href="#" class="brand-logo" onclick="goBackToDashboard(event)">
+      <i class="fa-solid fa-shield-halved"></i>
+      <div>
+        <h1>UniGuard Security</h1>
+        <p>Support & Help Center</p>
+      </div>
+    </a>
+    <a href="#" class="btn-back" id="backToDashBtn" onclick="goBackToDashboard(event)">
+      <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+    </a>
+  </nav>
+
+  <!-- HERO SECTION WITH SEARCH -->
+  <section class="support-hero">
+    <h2>UniGuard Help Center</h2>
+    <p>How can we assist you today? Search knowledge base articles or submit a direct support ticket.</p>
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" onkeyup="filterHelpTopics()" placeholder="Search help articles, gate passes, incident reports, FAQs...">
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <div class="support-container">
+
+    <!-- EMERGENCY HOTLINE BANNER -->
+    <div class="emergency-card">
+      <div class="emergency-info">
+        <div class="emergency-icon">
+          <i class="fa-solid fa-phone-volume"></i>
+        </div>
+        <div class="emergency-text">
+          <h3>24/7 Security Control Room Emergency Hotline</h3>
+          <p>For immediate threat response, medical assistance, or gate security breaches.</p>
+        </div>
+      </div>
+      <a href="tel:+94112581234" class="emergency-btn">
+        <i class="fa-solid fa-phone"></i> Call +94 11 258 1234
+      </a>
+    </div>
+
+    <!-- CATEGORIES GRID -->
+    <h3 class="grid-title"><i class="fa-solid fa-compass" style="color: #0088ff;"></i> Explore Help Topics</h3>
+    <div class="categories-grid" id="categoriesGrid">
+
+      <div class="cat-card">
+        <div class="cat-icon red">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h4>Incident & Breach Reporting</h4>
+        <p>Learn how officers and campus users file critical security alerts and incident logs.</p>
+        <a href="#faqSection" class="cat-link">View Guidelines <i class="fa-solid fa-chevron-right"></i></a>
+      </div>
+
+      <div class="cat-card">
+        <div class="cat-icon blue">
+          <i class="fa-solid fa-id-card"></i>
+        </div>
+        <h4>Visitor & Vehicle Pass Assistance</h4>
+        <p>Step-by-step guidance on QR verification, vehicle sticker requests, and approval status.</p>
+        <a href="#faqSection" class="cat-link">View Guidelines <i class="fa-solid fa-chevron-right"></i></a>
+      </div>
+
+      <div class="cat-card">
+        <div class="cat-icon orange">
+          <i class="fa-solid fa-box"></i>
+        </div>
+        <h4>Lost & Found Item Claims</h4>
+        <p>How to register misplaced items, view active claims, and retrieve verified personal belongings.</p>
+        <a href="#faqSection" class="cat-link">View Guidelines <i class="fa-solid fa-chevron-right"></i></a>
+      </div>
+
+      <div class="cat-card">
+        <div class="cat-icon purple">
+          <i class="fa-solid fa-key"></i>
+        </div>
+        <h4>Account & Login Access</h4>
+        <p>Troubleshoot login issues, password reset procedures, and role-based permissions.</p>
+        <a href="#faqSection" class="cat-link">View Guidelines <i class="fa-solid fa-chevron-right"></i></a>
+      </div>
+
+      <div class="cat-card">
+        <div class="cat-icon green">
+          <i class="fa-solid fa-calendar-check"></i>
+        </div>
+        <h4>Event Security Clearance</h4>
+        <p>Guidelines for requesting special event guards, venue clearances, and VIP escorts.</p>
+        <a href="#faqSection" class="cat-link">View Guidelines <i class="fa-solid fa-chevron-right"></i></a>
+      </div>
+
+      <div class="cat-card">
+        <div class="cat-icon slate">
+          <i class="fa-solid fa-file-invoice"></i>
+        </div>
+        <h4>Security Reports & Exports</h4>
+        <p>Access shift summaries, audit trails, and departmental security analytics.</p>
+        <a href="#faqSection" class="cat-link">View Guidelines <i class="fa-solid fa-chevron-right"></i></a>
+      </div>
+
+    </div>
+
+    <!-- TWO COLUMN: FAQ & TICKET FORM -->
+    <div class="two-col-layout">
+
+      <!-- FAQ ACCORDION -->
+      <div class="card-panel" id="faqSection">
+        <h3><i class="fa-solid fa-circle-question" style="color:#0088ff;"></i> Frequently Asked Questions</h3>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>How do I submit a critical incident report?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Navigate to the Incident Management page in your portal, click "Report New Incident", fill in the sector location, priority level, and detailed summary, then click Submit.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>What should I do if a vehicle QR code scanner fails at the gate?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Duty JSOs can switch to manual barcode input or lookup the vehicle registration number directly in the Vehicle Records directory on their dashboard.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>How long does it take for Visitor Approvals to process?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Visitor pass requests are reviewed in real-time by the OIC and University Management. Urgent passes are processed within 15–30 minutes.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>How can I update my profile picture or account details?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Go to "My Profile" from the top-right user menu. Click "Upload New Photo" or edit your contact information, then click "Save Profile Changes".
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Who do I contact if my account is deactivated?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Account status changes are managed by the System Administrator. Submit a support ticket below or contact admin@uniguard.lk.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- DIRECT TICKET FORM -->
+      <div class="card-panel">
+        <h3><i class="fa-solid fa-paper-plane" style="color:#10b981;"></i> Submit Support Ticket</h3>
+        <form id="supportTicketForm" onsubmit="handleSupportSubmit(event)">
+
+          <div class="form-group">
+            <label for="ticketName">Your Full Name</label>
+            <input type="text" id="ticketName" class="form-control" placeholder="e.g. Susantha Gamage" required>
+          </div>
+
+          <div class="form-group">
+            <label for="ticketEmail">Email Address</label>
+            <input type="email" id="ticketEmail" class="form-control" placeholder="e.g. user@uniguard.lk" required>
+          </div>
+
+          <div class="form-group">
+            <label for="ticketCategory">Issue Category</label>
+            <select id="ticketCategory" class="form-control" required>
+              <option value="General Inquiry">General Inquiry</option>
+              <option value="Gate Access & Vehicle Pass">Gate Access & Vehicle Pass</option>
+              <option value="Incident & Security Alert">Incident & Security Alert</option>
+              <option value="Account & Login Permissions">Account & Login Permissions</option>
+              <option value="System Technical Issue">System Technical Issue</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="ticketMessage">Detailed Message & Inquiry</label>
+            <textarea id="ticketMessage" class="form-control" placeholder="Describe your technical or operational question here..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <i class="fa-solid fa-paper-plane"></i> Submit Support Request
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="support-footer">
+    <div><i class="fa-solid fa-shield-halved"></i> UNIGUARD SECURITY MANAGEMENT SYSTEM &bull; SUPPORT CENTER</div>
+    <div style="margin-top: 4px;">University of Colombo, Sri Lanka &copy; All rights reserved.</div>
+  </footer>
+
+  <script>
+    // Automatically load user session info if logged in
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const storedUser = sessionStorage.getItem('uniguard_user');
+        if (storedUser) {
+          const user = JSON.parse(storedUser);
+          if (user.fname) {
+            const nameInput = document.getElementById('ticketName');
+            if (nameInput) nameInput.value = `${user.fname} ${user.lname || ''}`.trim();
+          }
+          if (user.email) {
+            const emailInput = document.getElementById('ticketEmail');
+            if (emailInput) emailInput.value = user.email;
+          }
+        }
+      } catch (e) {}
+    });
+
+    function toggleFaq(elem) {
+      const parent = elem.parentElement;
+      parent.classList.toggle('active');
+    }
+
+    function filterHelpTopics() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.cat-card');
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (text.includes(query)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    async function handleSupportSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('ticketName').value.trim();
+      const email = document.getElementById('ticketEmail').value.trim();
+      const category = document.getElementById('ticketCategory').value;
+      const message = document.getElementById('ticketMessage').value.trim();
+
+      try {
+        const response = await fetch('/Uniguard/BackEnd/index.php?action=create_ticket', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sender_name: name,
+            sender_email: email,
+            category: category,
+            subject: category,
+            message: message,
+            priority: 'Normal'
+          })
+        });
+
+        const result = await response.json();
+        if (result.status === 'success') {
+          alert(`Thank you, ${name}! Your support ticket (${result.ticket_number || 'TICK'}) has been submitted successfully to the Support Agent Desk.`);
+          document.getElementById('supportTicketForm').reset();
+        } else {
+          alert(result.message || 'Failed to submit support request.');
+        }
+      } catch (err) {
+        alert('Support request submitted. Our team will review it shortly.');
+        document.getElementById('supportTicketForm').reset();
+      }
+    }
+
+    function goBackToDashboard(e) {
+      if (e) e.preventDefault();
+      try {
+        const storedUser = sessionStorage.getItem('uniguard_user');
+        if (storedUser) {
+          const user = JSON.parse(storedUser);
+          const r = (user.role || '').toLowerCase();
+          if (r === 'cso' || r === 'chief security officer') {
+            window.location.href = '/Uniguard/FrontEnd/Member1/cso/dashboard/index.html';
+            return;
+          } else if (r === 'oic' || r === 'officer in charge') {
+            window.location.href = '/Uniguard/FrontEnd/Member1/oic/dashboard/dashboard.html';
+            return;
+          } else if (r === 'jso' || r === 'junior security officer') {
+            window.location.href = '/Uniguard/FrontEnd/Member1/jso/dashboard/index.html';
+            return;
+          } else if (r === 'student') {
+            window.location.href = '/Uniguard/FrontEnd/Member3/student/dashboard/index.html';
+            return;
+          } else if (r === 'staff') {
+            window.location.href = '/Uniguard/FrontEnd/Member3/staff/dashboard/index.html';
+            return;
+          } else if (r.includes('management') || r.includes('um')) {
+            window.location.href = '/Uniguard/FrontEnd/Member 2/UniversityManagement/dashboard/dashboard.html';
+            return;
+          }
+        }
+      } catch (e) {}
+
+      // Fallback
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = '/Uniguard/FrontEnd/Member1/cso/dashboard/index.html';
+      }
+    }
+  </script>
+</body>
+
+</html>

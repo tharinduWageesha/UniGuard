@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniGuard - My Profile (STAFF)</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="dashboard/styles.css">
+  <link rel="stylesheet" href="../shared/notif-widget.css">
+
+  <style>
+    .profile-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    .profile-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .hero-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .avatar-large-img {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #f1f5f9;
+    }
+
+    .status-badge {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 0.2rem 0.5rem;
+      border-radius: 12px;
+      text-transform: uppercase;
+      border: 2px solid #ffffff;
+      background: #d1fae5;
+      color: #047857;
+    }
+
+    .user-fullname {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .user-designation {
+      display: inline-block;
+      margin-top: 0.35rem;
+      font-size: 0.725rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+      background: var(--primary-light-blue);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .user-empid {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      font-weight: 700;
+    }
+
+    .notice-box {
+      margin-top: 1.5rem;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.85rem;
+      font-size: 0.725rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 0.5rem;
+      text-align: left;
+      line-height: 1.4;
+    }
+
+    .card-title-header {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .field-group label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .field-group input[readonly] {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      color: var(--text-dark);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.65rem 0.85rem;
+      border-radius: 6px;
+      cursor: not-allowed;
+      outline: none;
+      width: 100%;
+    }
+
+    .field-group input:not([readonly]) {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      color: var(--text-dark);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.65rem 0.85rem;
+      border-radius: 6px;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+
+    .field-group input:not([readonly]):focus {
+      border-color: var(--primary-blue);
+    }
+
+    .profile-save-row {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    @media (max-width: 900px) {
+      .profile-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div>
+        <div class="brand-header">
+          <div class="brand-logo">
+            <img src="../images/logo.png" alt="" class="logopng">
+          </div>
+          <div class="brand-text">
+            <h2>UniGuard Security</h2>
+            <p>Staff Portal</p>
+          </div>
+        </div>
+
+        <nav class="nav-menu">
+          <span class="menu-label">STAFF SERVICES</span>
+          <a href="dashboard/index.html" class="nav-item"><i class="fa-solid fa-house"></i> Dashboard</a>
+          <a href="lostFound/lostFound.html" class="nav-item"><i class="fa-solid fa-box-archive"></i> Lost &amp; Found</a>
+          <a href="vehiclePass/vehiclePass.html" class="nav-item"><i class="fa-solid fa-car"></i> Vehicle Pass</a>
+          <a href="reportIncident/reportIncident.html" class="nav-item"><i class="fa-solid fa-phone-volume"></i> Emergency Contact</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="window.location.href='loginPage.html'"><i class="fa-solid fa-power-off"></i> LOGOUT</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-wrapper">
+
+      <header class="topbar">
+        <div class="welcome-greet">
+          <div class="welcome-icon"><i class="fa-solid fa-sun"></i></div>
+          <div class="welcome-text">
+            <span class="welcome-hi">Good morning,</span>
+            <span class="welcome-name">A.M.D</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="time-display">
+            <span id="current-time" class="time-text">--:--:-- PM</span>
+            <span id="current-date" class="date-text">-- ---- ----</span>
+          </div>
+
+          <div class="notification-icon">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge">1</span>
+          </div>
+
+          <a href="myprofile.html" class="user-profile-link">
+          <div class="user-profile">
+            <img src="https://i.pravatar.cc/100?img=45" alt="Profile Avatar" class="avatar">
+            <div class="user-info">
+              <span class="user-name">A.M.D Amna</span>
+              <span class="user-role">STAFF</span>
+            </div>
+          </div>
+          </a>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+
+        <div class="page-header" style="margin-bottom: 1.25rem;">
+          <div>
+            <h1 style="font-size: 1.35rem; font-weight: 800; color: #0f172a;">My Profile</h1>
+            <p style="font-size: 0.78rem; color: var(--text-muted);">View and update your UniGuard account details.</p>
+          </div>
+        </div>
+
+        <div class="profile-layout">
+
+          <!-- LEFT: HERO PROFILE CARD -->
+          <div class="profile-card hero-card">
+            <div class="avatar-wrapper">
+              <img src="https://i.pravatar.cc/100?img=45" alt="Profile Avatar" class="avatar-large-img">
+              <span class="status-badge">ACTIVE</span>
+            </div>
+            <h2 class="user-fullname">A.M.D Amna</h2>
+            <span class="user-designation">University Staff</span>
+            <p class="user-empid">ID: ST-2095</p>
+
+            <div class="notice-box">
+              <span>🔒 <strong>Note:</strong> Your name, staff id, and department are managed by UniGuard administration. Contact your department administrator for corrections.</span>
+            </div>
+          </div>
+
+          <!-- RIGHT: DETAILS -->
+          <div class="profile-card">
+            <h3 class="card-title-header">Official &amp; Contact Details</h3>
+
+            <form onsubmit="handleProfileUpdate(event)">
+              <div class="info-grid">
+                <div class="field-group">
+                  <label>Full Name</label>
+                  <input type="text" value="A.M.D Amna" readonly>
+                </div>
+
+                <div class="field-group">
+                  <label>Staff ID</label>
+                  <input type="text" value="ST-2095" readonly>
+                </div>
+
+                <div class="field-group">
+                  <label>Department</label>
+                  <input type="text" value="Administration" readonly>
+                </div>
+
+                <div class="field-group">
+                  <label>Position</label>
+                  <input type="text" value="Lecturer" readonly>
+                </div>
+
+                <div class="field-group">
+                  <label>Official Email</label>
+                  <input type="email" id="edit-email" value="amna.staff@cmb.ac.lk" required>
+                </div>
+
+                <div class="field-group">
+                  <label>Contact Phone Number</label>
+                  <input type="tel" id="edit-phone" value="+94 76 456 7890" required>
+                </div>
+              </div>
+
+              <div class="profile-save-row">
+                <button type="submit" class="btn-primary">
+                  <i class="fa-solid fa-floppy-disk"></i> Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+
+      <footer class="footer">
+        <div><i class="fa-solid fa-shield"></i> UNIGUARD SECURITY MANAGEMENT SYSTEM</div>
+        <div>UNIVERSITY OF COLOMBO, SRI LANKA</div>
+        <div>&copy; All rights reserved</div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <script src="../shared/notif-widget.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", startLiveClock);
+
+    function startLiveClock() {
+      const updateClock = () => {
+        const now = new Date();
+        document.getElementById("current-time").textContent = now.toLocaleTimeString('en-US', { hour12: true });
+        document.getElementById("current-date").textContent = now.toLocaleDateString('en-US', {
+          weekday: 'long', day: '2-digit', month: 'short', year: 'numeric'
+        }).toUpperCase();
+      };
+      updateClock();
+      setInterval(updateClock, 1000);
+    }
+
+    function handleProfileUpdate(event) {
+      event.preventDefault();
+      alert("Contact information updated successfully.");
+    }
+  </script>
+<script>
+
+function updateGreeting() {
+  const elements = document.querySelectorAll(".welcome-hi");
+  if (!elements.length) return;
+  const hour = new Date().getHours();
+  let greetingText = "Good morning";
+  if (hour >= 12 && hour < 17) {
+    greetingText = "Good afternoon";
+  } else if (hour >= 17) {
+    greetingText = "Good evening";
+  }
+  elements.forEach((el) => {
+    const text = el.textContent || "";
+    const hasComma = text.trim().endsWith(",");
+    el.textContent = greetingText + (hasComma ? "," : "");
+  });
+}
+
+(function() { if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", updateGreeting); } else { updateGreeting(); } })();
+</script>
+</body>
+</html>

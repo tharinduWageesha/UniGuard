@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniGuard - Admin Dashboard</title>
+
+  <!-- Google Fonts & FontAwesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Chart.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../../shared/notif-widget.css">
+</head>
+<body>
+  <div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div>
+        <div class="brand-header">
+          <div class="brand-logo">
+            <img src="../../images/logo.png" alt="" class="logopng">
+          </div>
+          <div class="brand-text">
+            <h2>UniGuard Security</h2>
+            <p>System Admin</p>
+          </div>
+        </div>
+
+        <nav class="nav-menu">
+          <span class="menu-label">ADMIN OPERATIONS</span>
+          <a href="index.html" class="nav-item active"><i class="fa-solid fa-chart-line"></i> Admin Dashboard</a>
+          <a href="../manageUsers/manageUsers.html" class="nav-item"><i class="fa-solid fa-users-gear"></i> Manage Users</a>
+          <a href="../configureSettings/configureSettings.html" class="nav-item"><i class="fa-solid fa-sliders"></i> Configure Settings</a>
+          <a href="../backupRestore/backupRestore.html" class="nav-item"><i class="fa-solid fa-database"></i> Backup &amp; Restore</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="Auth.logout('/Uniguard/FrontEnd/Member3/admin/loginPage.html')"><i class="fa-solid fa-power-off"></i> LOGOUT</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-wrapper">
+
+      <!-- TOPBAR HEADER -->
+      <header class="topbar">
+        <div class="welcome-greet">
+          <div class="welcome-icon"><i class="fa-solid fa-sun"></i></div>
+          <div class="welcome-text">
+            <span class="welcome-hi">Good morning,</span>
+            <span class="welcome-name" id="topbar-welcome-name">Admin</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="time-display">
+            <span id="current-time" class="time-text">--:--:-- PM</span>
+            <span id="current-date" class="date-text">-- ---- ----</span>
+          </div>
+
+          <div class="notification-icon">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge">3</span>
+          </div>
+
+          <div class="user-profile">
+            <div class="avatar-letter" id="topbar-avatar">A</div>
+            <div class="user-info">
+              <span class="user-name" id="topbar-user-name">System Admin</span>
+              <span class="user-role" id="topbar-user-role">ADMIN</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- DASHBOARD BODY CONTENT -->
+      <div class="dashboard-content">
+
+        <!-- HERO / BANNER -->
+        <section class="banner-card">
+          <div class="blue-accent"></div>
+          <div class="banner-body">
+            <h1>System Administrator Dashboard</h1>
+          </div>
+        </section>
+
+        <!-- STATS CARDS -->
+        <section class="stats-grid cols-4">
+          <div class="stat-card">
+            <span class="stat-label">TOTAL REGISTERED USERS</span>
+            <div class="stat-value"><span class="stat-num blue" id="total-users">0</span> <span class="stat-text">Accounts</span></div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">STUDENTS / STAFF</span>
+            <div class="stat-value"><span class="stat-num blue" id="students-staff">0</span> <span class="stat-text">Registered</span></div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">SECURITY PERSONNEL</span>
+            <div class="stat-value"><span class="stat-num green" id="security-personnel">0</span> <span class="stat-text">Active</span></div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">DEACTIVATED ACCOUNTS</span>
+            <div class="stat-value"><span class="stat-num red" id="deactivated-count">0</span> <span class="stat-text">Suspended</span></div>
+          </div>
+        </section>
+
+        <!-- CHARTS SECTION -->
+        <section class="charts-grid">
+          <!-- LINE CHART -->
+          <div class="chart-card flex-2">
+            <h3>NEW ACCOUNT REGISTRATIONS (LAST 6 MONTHS)</h3>
+            <div class="chart-container">
+              <canvas id="trendsChart"></canvas>
+            </div>
+          </div>
+
+          <!-- DOUGHNUT CHART -->
+          <div class="chart-card flex-1">
+            <h3>USER ROLE DISTRIBUTION</h3>
+            <div class="chart-container donut-container">
+              <canvas id="distributionChart"></canvas>
+            </div>
+            <p class="chart-footer-note">Total accounts currently managed across all roles.</p>
+          </div>
+        </section>
+
+        <!-- RECENT ACTIVITY TABLE -->
+        <div class="table-card">
+          <div class="table-header">
+            <h3>RECENT SYSTEM ACTIVITY</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>User</th>
+                  <th>Action</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="recent-activity-body">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div><i class="fa-solid fa-shield"></i> UNIGUARD SECURITY MANAGEMENT SYSTEM</div>
+        <div>UNIVERSITY OF COLOMBO, SRI LANKA</div>
+        <div>&copy; All rights reserved</div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <script src="../../../auth.js"></script>
+  <script src="admin-dashboard.js"></script>
+  <script src="../../shared/notif-widget.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  Auth.requireAuth('Admin', '../loginPage.html');
+});
+
+function updateGreeting() {
+  const elements = document.querySelectorAll(".welcome-hi");
+  if (!elements.length) return;
+  const hour = new Date().getHours();
+  let greetingText = "Good morning";
+  if (hour >= 12 && hour < 17) {
+    greetingText = "Good afternoon";
+  } else if (hour >= 17) {
+    greetingText = "Good evening";
+  }
+  elements.forEach((el) => {
+    const text = el.textContent || "";
+    const hasComma = text.trim().endsWith(",");
+    el.textContent = greetingText + (hasComma ? "," : "");
+  });
+}
+
+(function() { if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", updateGreeting); } else { updateGreeting(); } })();
+</script>
+</body>
+</html>

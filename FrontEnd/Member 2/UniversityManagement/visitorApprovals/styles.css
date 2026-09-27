@@ -1,0 +1,109 @@
+@import url("../../shared/base.css");
+/* Visitor Approvals - page-specific overrides */
+
+
+/* ======================================================
+   UI REFRESH ROUND 2 — fix right-side alignment after
+   removing the search bar, and repurpose that space with
+   a duty-status indicator instead of leaving it empty.
+   ====================================================== */
+.topbar-right{
+  margin-left:auto;
+}
+.duty-status{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 16px;
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-pill);
+  background:var(--color-bg);
+}
+.duty-dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--color-success);
+  flex-shrink:0;
+}
+.duty-text{
+  display:flex;
+  flex-direction:column;
+  line-height:1.25;
+}
+.duty-label{
+  font-size:12px;
+  font-weight:700;
+  color:var(--color-text-dark);
+}
+.duty-sub{
+  font-size:10px;
+  color:var(--color-text-muted);
+}
+
+
+/* ======================================================
+   UI REFRESH ROUND 3 — swap duty-status for a personalized
+   welcome greeting (name pulled from that page's own profile).
+   ====================================================== */
+.welcome-greet{
+  display:flex;
+  flex-direction:column;
+  line-height:1.25;
+  padding-left:4px;
+}
+.welcome-hi{
+  font-size:11px;
+  color:var(--color-text-muted);
+  letter-spacing:.2px;
+}
+.welcome-name{
+  font-size:15px;
+  font-weight:700;
+  color:var(--color-text-dark);
+}
+
+
+/* ======================================================
+   UI REFRESH ROUND 4 — restyle the welcome greeting with
+   an icon chip + accent-colored name instead of plain text.
+   ====================================================== */
+.welcome-greet{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:12px;
+  padding-left:0;
+}
+.welcome-icon{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:var(--color-primary-light);
+  color:var(--color-primary);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.welcome-icon svg{
+  width:18px;
+  height:18px;
+}
+.welcome-text{
+  display:flex;
+  flex-direction:column;
+  line-height:1.2;
+}
+.welcome-hi{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  font-weight:700;
+  color:var(--color-text-muted);
+}
+.welcome-name{
+  font-size:17px;
+  font-weight:800;
+  color:var(--color-primary);
+}
